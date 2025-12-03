@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["DM Sans", "system-ui", "sans-serif"],
-        display: ["Playfair Display", "Georgia", "serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        display: ["Space Grotesk", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -62,13 +62,11 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
         sunuvan: {
+          yellow: "hsl(var(--sunuvan-yellow))",
           gold: "hsl(var(--sunuvan-gold))",
-          "gold-light": "hsl(var(--sunuvan-gold-light))",
-          teal: "hsl(var(--sunuvan-teal))",
-          "teal-light": "hsl(var(--sunuvan-teal-light))",
-          terracotta: "hsl(var(--sunuvan-terracotta))",
-          cream: "hsl(var(--sunuvan-cream))",
-          sand: "hsl(var(--sunuvan-sand))",
+          navy: "hsl(var(--sunuvan-navy))",
+          "navy-dark": "hsl(var(--sunuvan-navy-dark))",
+          black: "hsl(var(--sunuvan-black))",
         },
       },
       borderRadius: {
@@ -86,7 +84,7 @@ export default {
         "gradient-hero": "var(--gradient-hero)",
         "gradient-card": "var(--gradient-card)",
         "gradient-gold": "var(--gradient-gold)",
-        "gradient-teal": "var(--gradient-teal)",
+        "gradient-navy": "var(--gradient-navy)",
       },
       keyframes: {
         "accordion-down": {
@@ -105,12 +103,17 @@ export default {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        pulse: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         float: "float 3s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
+        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },

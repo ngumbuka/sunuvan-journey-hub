@@ -1,0 +1,202 @@
+{
+  "common": {
+    "bookNow": "Réserver",
+    "learnMore": "En savoir plus",
+    "contactUs": "Nous contacter",
+    "signIn": "Connexion",
+    "signUp": "S'inscrire",
+    "signOut": "Déconnexion",
+    "dashboard": "Tableau de bord",
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "all": "Tous",
+    "yes": "Oui",
+    "no": "Non",
+    "success": "Succès",
+    "error": "Erreur",
+    "status": "Statut",
+    "date": "Date",
+    "time": "Heure",
+    "price": "Prix",
+    "total": "Total",
+    "perDay": "/jour",
+    "perHour": "/heure",
+    "passengers": "Passagers",
+    "luggage": "Bagages",
+    "from": "De",
+    "to": "À"
+  },
+  "nav": {
+    "home": "Accueil",
+    "fleet": "Flotte",
+    "services": "Services",
+    "about": "À propos",
+    "contact": "Contact",
+    "faq": "FAQ"
+  },
+  "hero": {
+    "title": "Voyagez avec Excellence",
+    "subtitle": "Service de transport premium au Sénégal",
+    "description": "Découvrez le confort et la fiabilité avec notre flotte moderne et nos chauffeurs professionnels. De Dakar à Saint-Louis, nous vous emmenons partout avec style.",
+    "cta": "Réserver maintenant",
+    "explorFleet": "Explorer la flotte"
+  },
+  "features": {
+    "title": "Pourquoi choisir Sunuvan",
+    "professional": {
+      "title": "Chauffeurs Professionnels",
+      "description": "Chauffeurs expérimentés, multilingues et certifiés"
+    },
+    "premium": {
+      "title": "Véhicules Premium",
+      "description": "Flotte moderne, climatisée et bien entretenue"
+    },
+    "support": {
+      "title": "Support 24/7",
+      "description": "Assistance disponible à tout moment"
+    },
+    "transparent": {
+      "title": "Prix Transparents",
+      "description": "Pas de frais cachés, tarifs compétitifs"
+    }
+  },
+  "fleet": {
+    "title": "Notre Flotte",
+    "subtitle": "Des véhicules pour tous vos besoins",
+    "categories": {
+      "all": "Tous",
+      "sedan": "Berlines",
+      "suv": "SUV",
+      "van": "Minibus",
+      "luxury": "Luxe"
+    },
+    "bookVehicle": "Réserver ce véhicule",
+    "viewDetails": "Voir détails",
+    "available": "Disponible",
+    "unavailable": "Indisponible",
+    "onTrip": "En course",
+    "maintenance": "En maintenance"
+  },
+  "services": {
+    "title": "Nos Services",
+    "subtitle": "Solutions de transport adaptées à vos besoins",
+    "airport": {
+      "title": "Transferts Aéroport",
+      "description": "Service ponctuel de/vers l'aéroport Blaise Diagne"
+    },
+    "daily": {
+      "title": "Location Journalière",
+      "description": "Véhicule avec chauffeur pour vos déplacements quotidiens"
+    },
+    "tours": {
+      "title": "Circuits Touristiques",
+      "description": "Découvrez le Sénégal avec nos guides experts"
+    },
+    "corporate": {
+      "title": "Services Entreprise",
+      "description": "Solutions de transport pour professionnels"
+    },
+    "events": {
+      "title": "Événements",
+      "description": "Mariages, cérémonies et occasions spéciales"
+    }
+  },
+  "booking": {
+    "title": "Réservation",
+    "pickupLocation": "Lieu de prise en charge",
+    "dropoffLocation": "Lieu de destination",
+    "pickupDate": "Date de prise en charge",
+    "pickupTime": "Heure de prise en charge",
+    "returnDate": "Date de retour",
+    "serviceType": "Type de service",
+    "numberOfPassengers": "Nombre de passagers",
+    "specialRequests": "Demandes spéciales",
+    "confirmBooking": "Confirmer la réservation",
+    "bookingConfirmed": "Réservation confirmée",
+    "bookingNumber": "Numéro de réservation",
+    "status": {
+      "pending": "En attente",
+      "confirmed": "Confirmée",
+      "inProgress": "En cours",
+      "completed": "Terminée",
+      "cancelled": "Annulée"
+    }
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Nous sommes à votre écoute",
+    "name": "Nom complet",
+    "email": "Adresse email",
+    "phone": "Téléphone",
+    "message": "Message",
+    "send": "Envoyer le message",
+    "messageSent": "Message envoyé avec succès",
+    "address": "Adresse",
+    "hours": "Horaires",
+    "availability": "Disponible 24h/24, 7j/7"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue",
+    "overview": "Aperçu",
+    "myBookings": "Mes réservations",
+    "favorites": "Favoris",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "upcomingTrips": "Voyages à venir",
+    "pastTrips": "Voyages passés",
+    "savedVehicles": "Véhicules sauvegardés",
+    "noBookings": "Aucune réservation",
+    "noFavorites": "Aucun favori"
+  },
+  "admin": {
+    "dashboard": "Tableau de bord Admin",
+    "overview": "Vue d'ensemble",
+    "vehicles": "Véhicules",
+    "bookings": "Réservations",
+    "users": "Utilisateurs",
+    "drivers": "Chauffeurs",
+    "messages": "Messages",
+    "settings": "Paramètres",
+    "analytics": "Analytiques",
+    "totalBookings": "Réservations totales",
+    "activeVehicles": "Véhicules actifs",
+    "totalRevenue": "Revenu total",
+    "newClients": "Nouveaux clients",
+    "addVehicle": "Ajouter véhicule",
+    "addDriver": "Ajouter chauffeur",
+    "manageBookings": "Gérer les réservations",
+    "recentBookings": "Réservations récentes",
+    "fleetStatus": "État de la flotte"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "Inscription",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "forgotPassword": "Mot de passe oublié?",
+    "noAccount": "Pas encore de compte?",
+    "hasAccount": "Déjà un compte?",
+    "loginSuccess": "Connexion réussie",
+    "registerSuccess": "Inscription réussie",
+    "logoutSuccess": "Déconnexion réussie"
+  },
+  "footer": {
+    "description": "Votre partenaire de confiance pour le transport premium au Sénégal.",
+    "quickLinks": "Liens rapides",
+    "services": "Services",
+    "contact": "Contact",
+    "legal": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "copyright": "© 2024 Sunuvan. Tous droits réservés."
+  }
+}
