@@ -1,0 +1,202 @@
+{
+  "common": {
+    "bookNow": "Book Now",
+    "learnMore": "Learn More",
+    "contactUs": "Contact Us",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "yes": "Yes",
+    "no": "No",
+    "success": "Success",
+    "error": "Error",
+    "status": "Status",
+    "date": "Date",
+    "time": "Time",
+    "price": "Price",
+    "total": "Total",
+    "perDay": "/day",
+    "perHour": "/hour",
+    "passengers": "Passengers",
+    "luggage": "Luggage",
+    "from": "From",
+    "to": "To"
+  },
+  "nav": {
+    "home": "Home",
+    "fleet": "Fleet",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "faq": "FAQ"
+  },
+  "hero": {
+    "title": "Travel with Excellence",
+    "subtitle": "Premium transportation service in Senegal",
+    "description": "Experience comfort and reliability with our modern fleet and professional drivers. From Dakar to Saint-Louis, we take you everywhere in style.",
+    "cta": "Book Now",
+    "explorFleet": "Explore Fleet"
+  },
+  "features": {
+    "title": "Why Choose Sunuvan",
+    "professional": {
+      "title": "Professional Drivers",
+      "description": "Experienced, multilingual and certified drivers"
+    },
+    "premium": {
+      "title": "Premium Vehicles",
+      "description": "Modern, air-conditioned and well-maintained fleet"
+    },
+    "support": {
+      "title": "24/7 Support",
+      "description": "Assistance available at any time"
+    },
+    "transparent": {
+      "title": "Transparent Pricing",
+      "description": "No hidden fees, competitive rates"
+    }
+  },
+  "fleet": {
+    "title": "Our Fleet",
+    "subtitle": "Vehicles for all your needs",
+    "categories": {
+      "all": "All",
+      "sedan": "Sedans",
+      "suv": "SUVs",
+      "van": "Vans",
+      "luxury": "Luxury"
+    },
+    "bookVehicle": "Book this vehicle",
+    "viewDetails": "View details",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "onTrip": "On trip",
+    "maintenance": "Maintenance"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Transportation solutions tailored to your needs",
+    "airport": {
+      "title": "Airport Transfers",
+      "description": "Punctual service to/from Blaise Diagne airport"
+    },
+    "daily": {
+      "title": "Daily Rental",
+      "description": "Vehicle with driver for your daily travels"
+    },
+    "tours": {
+      "title": "Tourist Tours",
+      "description": "Discover Senegal with our expert guides"
+    },
+    "corporate": {
+      "title": "Corporate Services",
+      "description": "Transportation solutions for professionals"
+    },
+    "events": {
+      "title": "Events",
+      "description": "Weddings, ceremonies and special occasions"
+    }
+  },
+  "booking": {
+    "title": "Booking",
+    "pickupLocation": "Pickup location",
+    "dropoffLocation": "Dropoff location",
+    "pickupDate": "Pickup date",
+    "pickupTime": "Pickup time",
+    "returnDate": "Return date",
+    "serviceType": "Service type",
+    "numberOfPassengers": "Number of passengers",
+    "specialRequests": "Special requests",
+    "confirmBooking": "Confirm booking",
+    "bookingConfirmed": "Booking confirmed",
+    "bookingNumber": "Booking number",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We're here to help",
+    "name": "Full name",
+    "email": "Email address",
+    "phone": "Phone",
+    "message": "Message",
+    "send": "Send message",
+    "messageSent": "Message sent successfully",
+    "address": "Address",
+    "hours": "Hours",
+    "availability": "Available 24/7"
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "overview": "Overview",
+    "myBookings": "My Bookings",
+    "favorites": "Favorites",
+    "profile": "Profile",
+    "settings": "Settings",
+    "upcomingTrips": "Upcoming Trips",
+    "pastTrips": "Past Trips",
+    "savedVehicles": "Saved Vehicles",
+    "noBookings": "No bookings",
+    "noFavorites": "No favorites"
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "overview": "Overview",
+    "vehicles": "Vehicles",
+    "bookings": "Bookings",
+    "users": "Users",
+    "drivers": "Drivers",
+    "messages": "Messages",
+    "settings": "Settings",
+    "analytics": "Analytics",
+    "totalBookings": "Total Bookings",
+    "activeVehicles": "Active Vehicles",
+    "totalRevenue": "Total Revenue",
+    "newClients": "New Clients",
+    "addVehicle": "Add Vehicle",
+    "addDriver": "Add Driver",
+    "manageBookings": "Manage Bookings",
+    "recentBookings": "Recent Bookings",
+    "fleetStatus": "Fleet Status"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "logoutSuccess": "Logout successful"
+  },
+  "footer": {
+    "description": "Your trusted partner for premium transportation in Senegal.",
+    "quickLinks": "Quick Links",
+    "services": "Services",
+    "contact": "Contact",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copyright": "© 2024 Sunuvan. All rights reserved."
+  }
+}
