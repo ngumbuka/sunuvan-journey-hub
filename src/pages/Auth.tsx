@@ -1,43 +1,97 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Mail, Lock, User, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().email("Email invalide"),
+  password: z.string().min(6, "Le mot de passe doit contenir au moins 6 caractères"),
+});
+
+const registerSchema = loginSchema.extend({
+  firstName: z.string().min(2, "Le prénom est requis"),
+  lastName: z.string().min(2, "Le nom est requis"),
+});
 
 export default function Auth() {
+  const { t } = useTranslation();
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const { user, signIn, signUp, loading: authLoading } = useAuth();
+  
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
 
+  useEffect(() => {
+    if (user && !authLoading) {
+      navigate("/dashboard");
+    }
+  }, [user, authLoading, navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
     setIsLoading(true);
 
-    // Simulate auth
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const schema = isLogin ? loginSchema : registerSchema;
+      const validationResult = schema.safeParse(formData);
+      
+      if (!validationResult.success) {
+        const fieldErrors: Record<string, string> = {};
+        validationResult.error.errors.forEach(err => {
+          if (err.path[0]) fieldErrors[err.path[0].toString()] = err.message;
+        });
+        setErrors(fieldErrors);
+        setIsLoading(false);
+        return;
+      }
 
-    toast({
-      title: isLogin ? "Welcome back!" : "Account created!",
-      description: isLogin 
-        ? "You have successfully signed in." 
-        : "Please check your email to verify your account.",
-    });
-
-    setIsLoading(false);
+      if (isLogin) {
+        const { error } = await signIn(formData.email, formData.password);
+        if (!error) {
+          toast({ title: "Bienvenue !", description: "Connexion réussie." });
+          navigate("/dashboard");
+        }
+      } else {
+        const { error } = await signUp(formData.email, formData.password, formData.firstName, formData.lastName);
+        if (!error) {
+          toast({ title: "Compte créé !", description: "Vous pouvez maintenant vous connecter." });
+          navigate("/dashboard");
+        }
+      }
+    } catch (error) {
+      console.error("Auth error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
   };
+
+  if (authLoading) {
+    return <div className="min-h-screen flex items-center justify-center">Chargement...</div>;
+  }
 
   return (
     <div className="min-h-screen flex">
@@ -51,44 +105,53 @@ export default function Auth() {
         >
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-gradient-gold flex items-center justify-center">
-              <span className="text-primary-foreground font-display font-bold text-xl">S</span>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-secondary flex items-center justify-center">
+              <span className="text-accent-foreground font-display font-bold text-xl">S</span>
             </div>
-            <span className="font-display text-2xl font-semibold text-foreground">
-              Sunuvan
-            </span>
+            <span className="font-display text-2xl font-semibold text-foreground">Sunuvan</span>
           </Link>
 
           <h1 className="font-display text-3xl font-bold text-foreground mb-2">
-            {isLogin ? "Welcome back" : "Create an account"}
+            {isLogin ? t("auth.signIn") : t("auth.signUp")}
           </h1>
           <p className="text-muted-foreground mb-8">
             {isLogin
-              ? "Sign in to manage your bookings and access exclusive features."
-              : "Join Sunuvan to book vehicles and track your journeys."}
+              ? "Connectez-vous pour gérer vos réservations."
+              : "Rejoignez Sunuvan pour réserver vos trajets."}
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {!isLogin && (
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="firstName">{t("auth.firstName")}</Label>
                   <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
+                    id="firstName"
+                    name="firstName"
+                    value={formData.firstName}
                     onChange={handleChange}
-                    placeholder="Your full name"
-                    className="pl-10"
-                    required={!isLogin}
+                    placeholder="Prénom"
+                    className={errors.firstName ? "border-destructive" : ""}
                   />
+                  {errors.firstName && <p className="text-xs text-destructive">{errors.firstName}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="lastName">{t("auth.lastName")}</Label>
+                  <Input
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    placeholder="Nom"
+                    className={errors.lastName ? "border-destructive" : ""}
+                  />
+                  {errors.lastName && <p className="text-xs text-destructive">{errors.lastName}</p>}
                 </div>
               </div>
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("auth.email")}</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
@@ -97,15 +160,16 @@ export default function Auth() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="your@email.com"
-                  className="pl-10"
+                  placeholder="votre@email.com"
+                  className={`pl-10 ${errors.email ? "border-destructive" : ""}`}
                   required
                 />
               </div>
+              {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("auth.password")}</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
@@ -115,7 +179,7 @@ export default function Auth() {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="pl-10 pr-10"
+                  className={`pl-10 pr-10 ${errors.password ? "border-destructive" : ""}`}
                   required
                 />
                 <button
@@ -126,26 +190,14 @@ export default function Auth() {
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
+              {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
             </div>
 
-            {isLogin && (
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  className="text-sm text-primary hover:underline"
-                >
-                  Forgot password?
-                </button>
-              </div>
-            )}
-
             <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isLoading}>
-              {isLoading ? (
-                "Please wait..."
-              ) : (
+              {isLoading ? "Chargement..." : (
                 <>
-                  {isLogin ? "Sign In" : "Create Account"}
-                  <ArrowRight className="w-4 h-4" />
+                  {isLogin ? t("auth.loginButton") : t("auth.registerButton")}
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </>
               )}
             </Button>
@@ -153,49 +205,48 @@ export default function Auth() {
 
           <div className="mt-8 text-center">
             <p className="text-muted-foreground">
-              {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+              {isLogin ? t("auth.noAccount") : t("auth.hasAccount")}{" "}
               <button
                 type="button"
-                onClick={() => setIsLogin(!isLogin)}
+                onClick={() => { setIsLogin(!isLogin); setErrors({}); }}
                 className="text-primary font-medium hover:underline"
               >
-                {isLogin ? "Sign up" : "Sign in"}
+                {isLogin ? t("auth.createAccount") : t("auth.signIn")}
               </button>
             </p>
           </div>
 
           <div className="mt-8 pt-8 border-t border-border text-center">
             <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
-              ← Back to Homepage
+              ← Retour à l'accueil
             </Link>
           </div>
         </motion.div>
       </div>
 
       {/* Right Panel - Image */}
-      <div className="hidden lg:flex flex-1 bg-secondary relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-secondary via-secondary to-primary/20" />
-        <div className="relative z-10 flex flex-col items-center justify-center p-12 text-secondary-foreground">
+      <div className="hidden lg:flex flex-1 bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/80" />
+        <div className="relative z-10 flex flex-col items-center justify-center p-12 text-primary-foreground">
           <div className="max-w-md text-center">
             <h2 className="font-display text-4xl font-bold mb-4">
-              Experience Teranga on Wheels
+              Découvrez la Teranga sur Roues
             </h2>
-            <p className="text-lg text-secondary-foreground/80 mb-8">
-              Join thousands of travelers who trust Sunuvan for comfortable, 
-              reliable transportation across Senegal.
+            <p className="text-lg text-primary-foreground/80 mb-8">
+              Rejoignez des milliers de voyageurs qui font confiance à Sunuvan pour un transport confortable et fiable à travers le Sénégal.
             </p>
             <div className="grid grid-cols-3 gap-6">
               <div>
-                <p className="font-display text-3xl font-bold text-primary">500+</p>
-                <p className="text-sm text-secondary-foreground/70">Happy Clients</p>
+                <p className="font-display text-3xl font-bold text-accent">500+</p>
+                <p className="text-sm text-primary-foreground/70">Clients Satisfaits</p>
               </div>
               <div>
-                <p className="font-display text-3xl font-bold text-primary">15+</p>
-                <p className="text-sm text-secondary-foreground/70">Premium Vans</p>
+                <p className="font-display text-3xl font-bold text-accent">15+</p>
+                <p className="text-sm text-primary-foreground/70">Véhicules Premium</p>
               </div>
               <div>
-                <p className="font-display text-3xl font-bold text-primary">24/7</p>
-                <p className="text-sm text-secondary-foreground/70">Support</p>
+                <p className="font-display text-3xl font-bold text-accent">24/7</p>
+                <p className="text-sm text-primary-foreground/70">Support</p>
               </div>
             </div>
           </div>

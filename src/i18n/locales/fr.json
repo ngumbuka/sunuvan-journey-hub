@@ -38,7 +38,11 @@
     "services": "Services",
     "about": "À propos",
     "contact": "Contact",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "book": "Réserver",
+    "signIn": "Connexion",
+    "signOut": "Déconnexion",
+    "dashboard": "Tableau de bord"
   },
   "hero": {
     "title": "Voyagez avec Excellence",
@@ -143,6 +147,7 @@
   },
   "dashboard": {
     "welcome": "Bienvenue",
+    "subtitle": "Gérez vos réservations et planifiez votre prochain voyage avec Sunuvan.",
     "overview": "Aperçu",
     "myBookings": "Mes réservations",
     "favorites": "Favoris",
@@ -151,6 +156,8 @@
     "upcomingTrips": "Voyages à venir",
     "pastTrips": "Voyages passés",
     "savedVehicles": "Véhicules sauvegardés",
+    "newBooking": "Nouvelle réservation",
+    "viewBookings": "Voir mes réservations",
     "noBookings": "Aucune réservation",
     "noFavorites": "Aucun favori"
   },
@@ -175,8 +182,8 @@
     "fleetStatus": "État de la flotte"
   },
   "auth": {
-    "login": "Connexion",
-    "register": "Inscription",
+    "signIn": "Connexion",
+    "signUp": "Inscription",
     "email": "Email",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
@@ -185,6 +192,9 @@
     "forgotPassword": "Mot de passe oublié?",
     "noAccount": "Pas encore de compte?",
     "hasAccount": "Déjà un compte?",
+    "createAccount": "Créer un compte",
+    "loginButton": "Se connecter",
+    "registerButton": "S'inscrire",
     "loginSuccess": "Connexion réussie",
     "registerSuccess": "Inscription réussie",
     "logoutSuccess": "Déconnexion réussie"
