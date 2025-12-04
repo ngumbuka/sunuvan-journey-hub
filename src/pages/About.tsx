@@ -3,78 +3,71 @@ import { Heart, CheckCircle, Shield, Star, Users, Award, Quote } from "lucide-re
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
-const values = [
-  {
-    icon: Heart,
-    title: "Teranga",
-    subtitle: "Cardinal Value",
-    description: "Senegalese hospitality is not a slogan, it's our way of welcoming each client as an honored guest. We go beyond simple service.",
-    color: "text-accent",
-  },
-  {
-    icon: CheckCircle,
-    title: "Reliability",
-    subtitle: "Our Promise",
-    description: "We keep our commitments. A vehicle on time, in perfect condition, and a professional driver are our minimum promise.",
-    color: "text-primary",
-  },
-  {
-    icon: Shield,
-    title: "Safety",
-    subtitle: "Non-Negotiable",
-    description: "Our drivers are rigorously selected and trained, and our vehicles are maintained with the greatest rigor.",
-    color: "text-secondary",
-  },
-  {
-    icon: Star,
-    title: "Excellence",
-    subtitle: "Our Standard",
-    description: "We always aim to exceed expectations, whether through a small gesture, last-minute flexibility, or informed advice.",
-    color: "text-primary",
-  },
-];
-
-const differentiators = [
-  {
-    title: "Professionalization of the Informal Sector",
-    description: "Unlike \"clandos\" and unstructured actors, Sunuvan is a registered company with insurance, contracts, and transparent accounting. Our clients have peace of mind.",
-  },
-  {
-    title: "Our Drivers, True Ambassadors",
-    description: "Not just drivers. They are professionals trained in hospitality, discreet, punctual, and with deep knowledge of the terrain. They are the face of our Teranga.",
-  },
-  {
-    title: "Turnkey & Customizable Service",
-    description: "We don't sell an A-to-B trip, we sell a solution. We build the itinerary with you, suggest stops, and adapt to your unforeseen events.",
-  },
-  {
-    title: "The Bridge Between Worlds",
-    description: "We understand both international tourist expectations (comfort, punctuality) and local client realities (family needs, events). We speak both languages, literally and figuratively.",
-  },
-];
-
+const values = [{
+  icon: Heart,
+  title: "Teranga",
+  subtitle: "Cardinal Value",
+  description: "Senegalese hospitality is not a slogan, it's our way of welcoming each client as an honored guest. We go beyond simple service.",
+  color: "text-accent"
+}, {
+  icon: CheckCircle,
+  title: "Reliability",
+  subtitle: "Our Promise",
+  description: "We keep our commitments. A vehicle on time, in perfect condition, and a professional driver are our minimum promise.",
+  color: "text-primary"
+}, {
+  icon: Shield,
+  title: "Safety",
+  subtitle: "Non-Negotiable",
+  description: "Our drivers are rigorously selected and trained, and our vehicles are maintained with the greatest rigor.",
+  color: "text-secondary"
+}, {
+  icon: Star,
+  title: "Excellence",
+  subtitle: "Our Standard",
+  description: "We always aim to exceed expectations, whether through a small gesture, last-minute flexibility, or informed advice.",
+  color: "text-primary"
+}];
+const differentiators = [{
+  title: "Professionalization of the Informal Sector",
+  description: "Unlike \"clandos\" and unstructured actors, Sunuvan is a registered company with insurance, contracts, and transparent accounting. Our clients have peace of mind."
+}, {
+  title: "Our Drivers, True Ambassadors",
+  description: "Not just drivers. They are professionals trained in hospitality, discreet, punctual, and with deep knowledge of the terrain. They are the face of our Teranga."
+}, {
+  title: "Turnkey & Customizable Service",
+  description: "We don't sell an A-to-B trip, we sell a solution. We build the itinerary with you, suggest stops, and adapt to your unforeseen events."
+}, {
+  title: "The Bridge Between Worlds",
+  description: "We understand both international tourist expectations (comfort, punctuality) and local client realities (family needs, events). We speak both languages, literally and figuratively."
+}];
 export default function About() {
-  return (
-    <Layout>
+  return <Layout>
       {/* Hero Section */}
       <section className="section-padding bg-gradient-hero">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6"
-            >
+            <motion.h1 initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.6
+          }} className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
               Our Story: More Than Just Transport
             </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-lg text-muted-foreground"
-            >
+            <motion.p initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.6,
+            delay: 0.1
+          }} className="text-lg text-muted-foreground">
               Discover the journey that brought Sunuvan to life and the values 
               that drive us every day.
             </motion.p>
@@ -86,12 +79,17 @@ export default function About() {
       <section className="section-padding">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
+            <motion.div initial={{
+            opacity: 0,
+            x: -20
+          }} whileInView={{
+            opacity: 1,
+            x: 0
+          }} transition={{
+            duration: 0.6
+          }} viewport={{
+            once: true
+          }}>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
                 Born from a Vision
               </h2>
@@ -120,18 +118,18 @@ export default function About() {
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=80"
-                alt="Senegalese landscape"
-                className="rounded-2xl shadow-medium"
-              />
+            <motion.div initial={{
+            opacity: 0,
+            x: 20
+          }} whileInView={{
+            opacity: 1,
+            x: 0
+          }} transition={{
+            duration: 0.6
+          }} viewport={{
+            once: true
+          }} className="relative">
+              <img src="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=80" alt="Senegalese landscape" className="rounded-2xl shadow-medium" />
               <div className="absolute -bottom-6 -left-6 bg-card rounded-xl p-4 shadow-medium">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -152,13 +150,17 @@ export default function About() {
       <section className="section-padding bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="bg-card rounded-2xl p-8 shadow-soft"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.5
+          }} viewport={{
+            once: true
+          }} className="bg-card rounded-2xl p-8 shadow-soft">
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
                 <Users className="w-7 h-7 text-primary" />
               </div>
@@ -172,13 +174,18 @@ export default function About() {
               </p>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="bg-secondary text-secondary-foreground rounded-2xl p-8"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.5,
+            delay: 0.1
+          }} viewport={{
+            once: true
+          }} className="bg-secondary text-secondary-foreground rounded-2xl p-8">
               <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center mb-6">
                 <Star className="w-7 h-7 text-primary" />
               </div>
@@ -208,15 +215,18 @@ export default function About() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-card rounded-2xl p-6 shadow-soft hover:shadow-medium transition-all duration-300"
-              >
+            {values.map((value, index) => <motion.div key={value.title} initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.5,
+            delay: index * 0.1
+          }} viewport={{
+            once: true
+          }} className="bg-card rounded-2xl p-6 shadow-soft hover:shadow-medium transition-all duration-300">
                 <div className="flex items-start gap-4">
                   <div className="w-14 h-14 rounded-xl bg-muted flex items-center justify-center shrink-0">
                     <value.icon className={`w-7 h-7 ${value.color}`} />
@@ -229,8 +239,7 @@ export default function About() {
                     <p className="text-muted-foreground">{value.description}</p>
                   </div>
                 </div>
-              </motion.div>
-            ))}
+              </motion.div>)}
           </div>
         </div>
       </section>
@@ -248,21 +257,23 @@ export default function About() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {differentiators.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-card rounded-2xl p-6 shadow-soft border-l-4 border-primary"
-              >
+            {differentiators.map((item, index) => <motion.div key={item.title} initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.5,
+            delay: index * 0.1
+          }} viewport={{
+            once: true
+          }} className="bg-card p-6 shadow-soft border-l-4 border-primary rounded-sm">
                 <h3 className="font-display text-lg font-semibold text-foreground mb-3">
                   {item.title}
                 </h3>
                 <p className="text-muted-foreground">{item.description}</p>
-              </motion.div>
-            ))}
+              </motion.div>)}
           </div>
         </div>
       </section>
@@ -284,6 +295,5 @@ export default function About() {
           </Link>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>;
 }
