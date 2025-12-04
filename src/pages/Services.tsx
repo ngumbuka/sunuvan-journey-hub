@@ -312,7 +312,7 @@ export default function Services() {
             delay: 0.3
           }} viewport={{
             once: true
-          }} className="bg-secondary text-secondary-foreground rounded-2xl p-6">
+          }} className="text-secondary-foreground rounded-2xl p-6 bg-accent">
               <div className="flex items-center gap-3 mb-4">
                 <Shield className="w-6 h-6 text-primary" />
                 <h3 className="font-display text-lg font-semibold">
