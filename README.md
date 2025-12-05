@@ -1,73 +1,84 @@
-# Welcome to your Lovable project
+# Sunuvan Journey Hub
 
-## Project info
+Sunuvan Journey Hub is a modern vehicle rental platform designed to provide a seamless booking experience for both luxury and standard transportation needs. Built with a focus on user experience and administrative efficiency, it connects customers with a diverse fleet of vehicles while providing powerful tools for fleet and booking management.
 
-**URL**: https://lovable.dev/projects/b0f5e83b-659f-4e8d-bf15-8f0561b4ee4e
+## Features
 
-## How can I edit this code?
+### For Customers
+- **Fleet Browsing**: Explore a wide range of vehicles with filtering by category (Standard, Premium, Van/Minibus).
+- **Detailed Vehicle Information**: View specifications, amenities (AC, Wifi, etc.), and pricing.
+- **Booking System**: Easy-to-use booking interface for scheduling pickups and drop-offs.
+- **Favorites**: specialized "wishlist" to save preferred vehicles for quick access.
+- **Authentication**: Secure user accounts to manage bookings and preferences.
 
-There are several ways of editing your application.
+### For Administrators
+- **Comprehensive Dashboard**: Real-time overview of bookings, fleet status, and key metrics.
+- **Fleet Management**: specific tools to add, edit, and remove vehicles, including managing availability and attributes.
+- **Booking Management**: Track and update booking statuses (Pending, Confirmed, Completed, Cancelled).
+- **Driver Management**: Manage driver profiles and assignments.
+- **Analytics**: Visual insights into booking trends and performance.
 
-**Use Lovable**
+## Technology Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b0f5e83b-659f-4e8d-bf15-8f0561b4ee4e) and start prompting.
+This project is built using a modern, robust technology stack:
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend Framework**: [React](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **Backend & Database**: [Supabase](https://supabase.com/)
+- **State Management**: [TanStack Query](https://tanstack.com/query/latest)
+- **Routing**: [React Router](https://reactrouter.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Follow these steps to set up the project locally:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
+- Node.js & npm installed (users [nvm](https://github.com/nvm-sh/nvm) is recommended)
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1.  **Clone the repository**
+    ```bash
+    git clone <YOUR_GIT_URL>
+    cd sunuvan-journey-hub
+    ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2.  **Install dependencies**
+    ```bash
+    npm install
+    # or
+    npm i
+    ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3.  **Start the development server**
+    ```bash
+    npm run dev
+    ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+The application will be available at `http://localhost:8080`.
+
+## Project Structure
+
+```
+src/
+├── components/     # Reusable UI components
+├── hooks/          # Custom React hooks (Auth, Toast, etc.)
+├── integrations/   # Third-party integrations (Supabase)
+├── lib/            # Utility functions
+├── pages/          # Application pages/routes
+│   ├── AdminDashboard.tsx  # Main admin interface
+│   ├── Fleet.tsx           # Fleet listing page
+│   └── ...
+└── App.tsx         # Main application entry point
 ```
 
-**Edit a file directly in GitHub**
+## Deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This project is optimized for deployment on modern web hosting platforms. Build the project for production using:
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/b0f5e83b-659f-4e8d-bf15-8f0561b4ee4e) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```bash
+npm run build
+```
