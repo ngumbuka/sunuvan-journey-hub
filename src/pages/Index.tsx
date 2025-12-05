@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Shield, UserCheck, RefreshCw, Sparkles, Globe2, MapPin, ArrowRight, CheckCircle, Star, Phone } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
+import { formatCurrency } from "@/lib/currency";
 import heroImage from "@/assets/hero-senegal.jpg";
 
 const differentiators = [
@@ -275,7 +276,7 @@ export default function Index() {
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-foreground">
-                      {t("index.featured.from")} {vehicle.price.toLocaleString()} FCFA
+                      {t("index.featured.from")} {formatCurrency(vehicle.price)}
                       {t("index.featured.day")}
                     </span>
                     <Link to="/fleet">

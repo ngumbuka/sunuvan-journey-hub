@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/lib/currency";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Vehicle = Tables<"vehicles">;
@@ -181,7 +182,7 @@ function MyBookings() {
                 </div>
                 <div className="flex items-center gap-2">
                   {booking.total_amount && (
-                    <span className="font-semibold text-lg">{booking.total_amount.toLocaleString()} FCFA</span>
+                    <span className="font-semibold text-lg">{formatCurrency(booking.total_amount)}</span>
                   )}
                   {booking.status === "pending" && (
                     <Button variant="outline" size="sm" onClick={() => cancelBooking(booking.id)}>
@@ -257,7 +258,7 @@ function Favorites() {
                   {fav.vehicles?.passengers} places • {fav.vehicles?.luggage} bagages
                 </p>
                 <div className="flex justify-between items-center">
-                  <span className="font-semibold text-primary">{fav.vehicles?.daily_rate?.toLocaleString()} FCFA/jour</span>
+                  <span className="font-semibold text-primary">{formatCurrency(fav.vehicles?.daily_rate || 0)}/jour</span>
                   <Button variant="ghost" size="icon" onClick={() => removeFavorite(fav.id)}>
                     <Trash2 className="w-4 h-4 text-destructive" />
                   </Button>

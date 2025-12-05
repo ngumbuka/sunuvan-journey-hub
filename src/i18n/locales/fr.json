@@ -168,7 +168,7 @@
     "empty": "Aucun véhicule disponible pour le moment",
     "noImage": "Image non disponible",
     "bookVehicle": "Réserver",
-    "dailyRate": "{{price}} FCFA/jour",
+    "dailyRate": "{{price}}/jour",
     "viewDetails": "Voir détails",
     "available": "Disponible",
     "unavailable": "Indisponible",
@@ -185,7 +185,7 @@
     "indicativePricing": "Tarification Indicative",
     "customQuote": "Devis sur mesure",
     "contactUsPrice": "Nous contacter",
-    "fromPrice": "À partir de {{price}} FCFA",
+    "fromPrice": "À partir de {{price}}",
     "items": {
       "transfers": {
         "title": "Transferts Standards",

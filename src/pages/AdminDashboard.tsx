@@ -212,7 +212,7 @@ function VehicleManagement() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div><Label>Tarif journalier (FCFA)</Label><Input type="number" value={formData.daily_rate} onChange={e => setFormData({ ...formData, daily_rate: Number(e.target.value) })} required /></div>
+                <div><Label>Tarif journalier (€)</Label><Input type="number" value={formData.daily_rate} onChange={e => setFormData({ ...formData, daily_rate: Number(e.target.value) })} required /></div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div><Label>Passagers</Label><Input type="number" value={formData.passengers} onChange={e => setFormData({ ...formData, passengers: Number(e.target.value) })} /></div>
@@ -248,7 +248,7 @@ function VehicleManagement() {
                 <td className="p-4 font-medium">{v.name}</td>
                 <td className="p-4 text-muted-foreground">{v.type}</td>
                 <td className="p-4"><span className="px-2 py-1 rounded-full bg-primary/10 text-primary text-xs capitalize">{v.category}</span></td>
-                <td className="p-4">{v.daily_rate.toLocaleString()} FCFA</td>
+                <td className="p-4">{formatCurrency(v.daily_rate)}</td>
                 <td className="p-4"><VehicleStatusBadge status={v.status} /></td>
                 <td className="p-4 text-right space-x-1">
                   <Button variant="ghost" size="icon" onClick={() => openEdit(v)}><Pencil className="w-4 h-4" /></Button>

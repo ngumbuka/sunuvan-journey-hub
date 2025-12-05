@@ -20,6 +20,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import type { Tables } from "@/integrations/supabase/types";
+import { formatCurrency } from "@/lib/currency";
 
 type Vehicle = Tables<"vehicles">;
 
@@ -236,7 +237,7 @@ export default function Fleet() {
                     <div className="flex items-center justify-between pt-4 border-t border-border">
                       <div>
                         <span className="text-sm text-muted-foreground">À partir de</span>
-                        <p className="font-semibold text-foreground">{t("fleet.dailyRate", { price: vehicle.daily_rate.toLocaleString() })}</p>
+                        <p className="font-semibold text-foreground">{t("fleet.dailyRate", { price: formatCurrency(vehicle.daily_rate) })}</p>
                       </div>
                       <Link to={`/book?vehicle=${vehicle.id}`}>
                         <Button variant="default" size="sm">

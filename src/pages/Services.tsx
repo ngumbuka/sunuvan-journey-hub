@@ -4,9 +4,15 @@ import { useTranslation } from "react-i18next";
 import { Plane, Clock, Map, PartyPopper, Building2, CheckCircle, AlertCircle, CreditCard, RefreshCw, User, Shield, ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
+import { formatCurrency } from "@/lib/currency";
 
 export default function Services() {
   const { t } = useTranslation();
+
+  // Helper to format ranges
+  const formatRange = (min: number, max: number) => {
+    return `${formatCurrency(min)} - ${formatCurrency(max)}`;
+  };
 
   const services = [{
     id: "transfers",
@@ -15,13 +21,13 @@ export default function Services() {
     description: t("services.items.transfers.description"),
     pricing: [{
       route: t("services.items.transfers.p1"),
-      price: "35,000 - 45,000 FCFA"
+      price: formatRange(35000, 45000)
     }, {
       route: t("services.items.transfers.p2"),
-      price: "45,000 - 55,000 FCFA"
+      price: formatRange(45000, 55000)
     }, {
       route: t("services.items.transfers.p3"),
-      price: "40,000 - 50,000 FCFA"
+      price: formatRange(40000, 50000)
     }]
   }, {
     id: "daily",
@@ -30,13 +36,13 @@ export default function Services() {
     description: t("services.items.daily.description"),
     pricing: [{
       route: t("services.items.daily.p1"),
-      price: "55,000 - 95,000 FCFA"
+      price: formatRange(55000, 95000)
     }, {
       route: t("services.items.daily.p2"),
-      price: "5,000 FCFA/hour"
+      price: `${formatCurrency(5000)}/hour`
     }, {
       route: t("services.items.daily.p3"),
-      price: "300 FCFA/km"
+      price: `${formatCurrency(300)}/km`
     }]
   }, {
     id: "tours",
@@ -45,13 +51,13 @@ export default function Services() {
     description: t("services.items.tours.description"),
     pricing: [{
       route: t("services.items.tours.p1"),
-      price: "75,000 FCFA"
+      price: formatCurrency(75000)
     }, {
       route: t("services.items.tours.p2"),
-      price: "65,000 FCFA"
+      price: formatCurrency(65000)
     }, {
       route: t("services.items.tours.p3"),
-      price: t("services.fromPrice", { price: "150,000" }) + "/day"
+      price: t("services.fromPrice", { price: formatCurrency(150000) }) + "/day"
     }]
   }, {
     id: "events",
@@ -60,10 +66,10 @@ export default function Services() {
     description: t("services.items.events.description"),
     pricing: [{
       route: t("services.items.events.p1"),
-      price: "80,000 - 120,000 FCFA"
+      price: formatRange(80000, 120000)
     }, {
       route: t("services.items.events.p2"),
-      price: "55,000 - 85,000 FCFA"
+      price: formatRange(55000, 85000)
     }, {
       route: t("services.items.events.p3"),
       price: t("services.customQuote")
@@ -78,7 +84,7 @@ export default function Services() {
       price: t("services.customQuote")
     }, {
       route: t("services.items.corporate.p2"),
-      price: t("services.fromPrice", { price: "65,000" }) + "/day"
+      price: t("services.fromPrice", { price: formatCurrency(65000) }) + "/day"
     }, {
       route: t("services.items.corporate.p3"),
       price: t("services.contactUsPrice")

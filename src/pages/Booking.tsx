@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
+import { formatCurrency } from "@/lib/currency";
 
 type Vehicle = Tables<"vehicles">;
 
@@ -491,17 +492,17 @@ export default function Booking() {
                   <div className="border-t border-border pt-4 space-y-3">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Tarif journalier</span>
-                      <span>{vehicle.daily_rate.toLocaleString()} FCFA</span>
+                      <span>{formatCurrency(vehicle.daily_rate)}/jour</span>
                     </div>
                     {totalAmount > 0 && (
                       <>
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Total estimé</span>
-                          <span className="font-semibold">{totalAmount.toLocaleString()} FCFA</span>
+                          <span className="font-semibold">{formatCurrency(totalAmount)}</span>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Acompte (30%)</span>
-                          <span className="text-primary font-semibold">{depositAmount.toLocaleString()} FCFA</span>
+                          <span className="text-primary font-semibold">{formatCurrency(depositAmount)}</span>
                         </div>
                       </>
                     )}
