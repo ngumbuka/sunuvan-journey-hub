@@ -42,7 +42,8 @@
     "book": "Réserver",
     "signIn": "Connexion",
     "signOut": "Déconnexion",
-    "dashboard": "Tableau de bord"
+    "dashboard": "Tableau de bord",
+    "blog": "Blog"
   },
   "about": {
     "hero": {
@@ -504,7 +505,15 @@
     "legal": "Mentions légales",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation",
-    "copyright": "© 2024 Sunuvan. Tous droits réservés."
+    "copyright": "© 2024 Sunuvan. Tous droits réservés.",
+    "company": "Entreprise",
+    "support": "Support",
+    "aboutUs": "À propos",
+    "ourFleet": "Notre Flotte",
+    "airportTransfers": "Transferts Aéroport",
+    "dailyRental": "Location Journalière",
+    "toursExcursions": "Circuits & Excursions",
+    "eventServices": "Services Événementiels"
   },
   "index": {
     "hero": {

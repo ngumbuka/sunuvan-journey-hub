@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import contactHero from "@/assets/contact-hero.png";
 
 export default function Contact() {
   const { t } = useTranslation();
@@ -96,14 +97,20 @@ export default function Contact() {
 
   return (
     <Layout>
+
       {/* Hero */}
-      <section className="section-padding bg-gradient-to-br from-primary to-primary/80">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative h-[40vh] min-h-[350px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src={contactHero} alt="Customer support" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-6">
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-display text-4xl md:text-5xl font-bold text-white mb-6">
               {t("contact.title")}
             </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-lg text-primary-foreground/80">
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-lg text-white/90">
               {t("contact.subtitle")}
             </motion.p>
           </div>

@@ -5,6 +5,7 @@ import { Plane, Clock, Map, PartyPopper, Building2, CheckCircle, AlertCircle, Cr
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/currency";
+import servicesHero from "@/assets/services-hero.png";
 
 export default function Services() {
   const { t } = useTranslation();
@@ -135,9 +136,15 @@ export default function Services() {
   };
 
   return <Layout>
+
     {/* Hero */}
-    <section className="section-padding bg-gradient-hero">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <img src={servicesHero} alt="Premium service" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <motion.h1 initial={{
             opacity: 0,
@@ -147,7 +154,7 @@ export default function Services() {
             y: 0
           }} transition={{
             duration: 0.6
-          }} className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
+          }} className="font-display text-4xl md:text-5xl font-bold text-white mb-6">
             {t("services.title")}
           </motion.h1>
           <motion.p initial={{
@@ -159,7 +166,7 @@ export default function Services() {
           }} transition={{
             duration: 0.6,
             delay: 0.1
-          }} className="text-lg text-muted-foreground">
+          }} className="text-lg md:text-xl text-white/90">
             {t("services.subtitle")}
           </motion.p>
         </div>

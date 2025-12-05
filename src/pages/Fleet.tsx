@@ -21,6 +21,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import type { Tables } from "@/integrations/supabase/types";
 import { formatCurrency } from "@/lib/currency";
+import fleetHero from "@/assets/fleet-hero.png";
 
 type Vehicle = Tables<"vehicles">;
 
@@ -95,15 +96,21 @@ export default function Fleet() {
 
   return (
     <Layout>
+
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-hero">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative h-[40vh] min-h-[350px] flex items-center justify-center overflow-hidden mb-12">
+        <div className="absolute inset-0 z-0">
+          <img src={fleetHero} alt="Luxury fleet" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6"
+              className="font-display text-4xl md:text-5xl font-bold text-white mb-6"
             >
               {t("fleet.title")}
             </motion.h1>
@@ -111,7 +118,7 @@ export default function Fleet() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-lg text-muted-foreground"
+              className="text-lg md:text-xl text-white/90"
             >
               {t("fleet.subtitle")}
             </motion.p>
