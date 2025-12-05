@@ -237,8 +237,8 @@ export default function Booking() {
                           type="button"
                           onClick={() => setFormData({ ...formData, service_type: service.id })}
                           className={`p-4 rounded-xl border-2 text-left transition-all ${formData.service_type === service.id
-                              ? "border-primary bg-primary/5"
-                              : "border-border hover:border-primary/50"
+                            ? "border-primary bg-primary/5"
+                            : "border-border hover:border-primary/50"
                             }`}
                         >
                           <h3 className="font-semibold mb-1">{service.label}</h3>
