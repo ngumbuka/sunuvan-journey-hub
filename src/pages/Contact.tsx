@@ -11,22 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
-const contactMethods = [
-  { icon: Phone, title: "Téléphone", value: "+221 77 123 45 67", subtext: "Disponible 7j/7, 8h - 20h", href: "tel:+221771234567" },
-  { icon: Mail, title: "Email", value: "info@sunuvan.com", subtext: "Réponse sous 24h", href: "mailto:info@sunuvan.com" },
-  { icon: MessageCircle, title: "WhatsApp", value: "+221 77 123 45 67", subtext: "Réponses rapides", href: "https://wa.me/221771234567" },
-  { icon: MapPin, title: "Couverture", value: "Tout le Sénégal", subtext: "Basé à Dakar", href: null },
-];
-
-const serviceOptions = [
-  { value: "airport", label: "Transfert Aéroport" },
-  { value: "daily", label: "Location Journalière" },
-  { value: "tour", label: "Excursion / Tour" },
-  { value: "wedding", label: "Mariage / Événement" },
-  { value: "corporate", label: "Service Entreprise" },
-  { value: "other", label: "Autre" },
-];
-
 export default function Contact() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -34,6 +18,22 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: "", email: "", phone: "", service: "", travelDate: "", passengers: "", pickup: "", dropoff: "", message: "",
   });
+
+  const contactMethods = [
+    { icon: Phone, title: t("contact.methods.phone.title"), value: "+221 77 123 45 67", subtext: t("contact.methods.phone.subtext"), href: "tel:+221771234567" },
+    { icon: Mail, title: t("contact.methods.email.title"), value: "info@sunuvan.com", subtext: t("contact.methods.email.subtext"), href: "mailto:info@sunuvan.com" },
+    { icon: MessageCircle, title: t("contact.methods.whatsapp.title"), value: "+221 77 123 45 67", subtext: t("contact.methods.whatsapp.subtext"), href: "https://wa.me/221771234567" },
+    { icon: MapPin, title: t("contact.methods.coverage.title"), value: t("contact.methods.coverage.value"), subtext: t("contact.methods.coverage.subtext"), href: null },
+  ];
+
+  const serviceOptions = [
+    { value: "airport", label: t("contact.services.airport") },
+    { value: "daily", label: t("contact.services.daily") },
+    { value: "tour", label: t("contact.services.tour") },
+    { value: "wedding", label: t("contact.services.wedding") },
+    { value: "corporate", label: t("contact.services.corporate") },
+    { value: "other", label: t("contact.services.other") },
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,16 +73,16 @@ export default function Contact() {
       if (emailError) console.error("Email error:", emailError);
 
       toast({
-        title: "Message envoyé !",
-        description: "Nous vous répondrons dans les plus brefs délais.",
+        title: t("contact.form.successTitle"),
+        description: t("contact.form.successDesc"),
       });
 
       setFormData({ name: "", email: "", phone: "", service: "", travelDate: "", passengers: "", pickup: "", dropoff: "", message: "" });
     } catch (error) {
       console.error("Error:", error);
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue. Veuillez réessayer.",
+        title: t("contact.form.errorTitle"),
+        description: t("contact.form.errorDesc"),
         variant: "destructive",
       });
     } finally {
@@ -146,29 +146,29 @@ export default function Contact() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <h2 className="font-display text-2xl font-bold text-foreground mb-6">Demander un Devis</h2>
-              
+              <h2 className="font-display text-2xl font-bold text-foreground mb-6">{t("contact.heroTitle")}</h2>
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Nom complet *</Label>
-                    <Input id="name" name="name" value={formData.name} onChange={handleChange} required placeholder="Votre nom" />
+                    <Label htmlFor="name">{t("contact.form.name")}</Label>
+                    <Input id="name" name="name" value={formData.name} onChange={handleChange} required placeholder={t("contact.form.placeholders.name")} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email *</Label>
-                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required placeholder="votre@email.com" />
+                    <Label htmlFor="email">{t("contact.form.email")}</Label>
+                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required placeholder={t("contact.form.placeholders.email")} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Téléphone *</Label>
-                    <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} required placeholder="+221 77 XXX XX XX" />
+                    <Label htmlFor="phone">{t("contact.form.phone")}</Label>
+                    <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} required placeholder={t("contact.form.placeholders.phone")} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="service">Service souhaité</Label>
+                    <Label htmlFor="service">{t("contact.form.service")}</Label>
                     <Select value={formData.service} onValueChange={(value) => setFormData({ ...formData, service: value })}>
-                      <SelectTrigger><SelectValue placeholder="Sélectionner un service" /></SelectTrigger>
+                      <SelectTrigger><SelectValue placeholder={t("contact.form.placeholders.selectService")} /></SelectTrigger>
                       <SelectContent>
                         {serviceOptions.map((option) => (
                           <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
@@ -180,33 +180,33 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="travelDate">Date de voyage</Label>
+                    <Label htmlFor="travelDate">{t("contact.form.travelDate")}</Label>
                     <Input id="travelDate" name="travelDate" type="date" value={formData.travelDate} onChange={handleChange} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="passengers">Nombre de passagers</Label>
-                    <Input id="passengers" name="passengers" type="number" min="1" max="50" value={formData.passengers} onChange={handleChange} placeholder="Ex: 4" />
+                    <Label htmlFor="passengers">{t("contact.form.passengers")}</Label>
+                    <Input id="passengers" name="passengers" type="number" min="1" max="50" value={formData.passengers} onChange={handleChange} placeholder={t("contact.form.placeholders.passengers")} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="pickup">Lieu de prise en charge</Label>
-                    <Input id="pickup" name="pickup" value={formData.pickup} onChange={handleChange} placeholder="Ex: Aéroport AIBD" />
+                    <Label htmlFor="pickup">{t("contact.form.pickup")}</Label>
+                    <Input id="pickup" name="pickup" value={formData.pickup} onChange={handleChange} placeholder={t("contact.form.placeholders.pickup")} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="dropoff">Destination</Label>
-                    <Input id="dropoff" name="dropoff" value={formData.dropoff} onChange={handleChange} placeholder="Ex: Hôtel Terrou-Bi, Dakar" />
+                    <Label htmlFor="dropoff">{t("contact.form.dropoff")}</Label>
+                    <Input id="dropoff" name="dropoff" value={formData.dropoff} onChange={handleChange} placeholder={t("contact.form.placeholders.dropoff")} />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message">Message / Demandes spéciales</Label>
-                  <Textarea id="message" name="message" value={formData.message} onChange={handleChange} rows={4} placeholder="Dites-nous en plus sur votre voyage..." required />
+                  <Label htmlFor="message">{t("contact.form.message")}</Label>
+                  <Textarea id="message" name="message" value={formData.message} onChange={handleChange} rows={4} placeholder={t("contact.form.placeholders.message")} required />
                 </div>
 
                 <Button type="submit" variant="hero" size="lg" disabled={isSubmitting}>
-                  {isSubmitting ? "Envoi en cours..." : <><Send className="w-4 h-4 mr-2" /> Envoyer le message</>}
+                  {isSubmitting ? t("contact.form.submitting") : <><Send className="w-4 h-4 mr-2" /> {t("contact.form.submit")}</>}
                 </Button>
               </form>
             </motion.div>
@@ -219,20 +219,20 @@ export default function Contact() {
               <div className="bg-card rounded-2xl p-6 shadow-soft border border-border/50">
                 <div className="flex items-center gap-3 mb-4">
                   <Clock className="w-6 h-6 text-primary" />
-                  <h3 className="font-display text-lg font-semibold text-foreground">Horaires d'ouverture</h3>
+                  <h3 className="font-display text-lg font-semibold text-foreground">{t("contact.info.hours.title")}</h3>
                 </div>
                 <div className="space-y-2 text-muted-foreground">
-                  <div className="flex justify-between"><span>Lundi - Dimanche</span><span className="font-medium text-foreground">8h00 - 20h00</span></div>
-                  <div className="flex justify-between"><span>Support WhatsApp</span><span className="font-medium text-foreground">24h/24</span></div>
+                  <div className="flex justify-between"><span>{t("contact.info.hours.week")}</span><span className="font-medium text-foreground">8h00 - 20h00</span></div>
+                  <div className="flex justify-between"><span>{t("contact.info.hours.whatsapp")}</span><span className="font-medium text-foreground">24h/24</span></div>
                 </div>
               </div>
 
               <div className="bg-primary text-primary-foreground rounded-2xl p-6">
-                <h3 className="font-display text-lg font-semibold mb-3">Notre engagement</h3>
+                <h3 className="font-display text-lg font-semibold mb-3">{t("contact.info.commitment.title")}</h3>
                 <ul className="space-y-2">
-                  <li className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-accent" /><span>Devis sous 2h en heures ouvrées</span></li>
-                  <li className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-accent" /><span>Réponse email sous 24h</span></li>
-                  <li className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-accent" /><span>WhatsApp pour les urgences</span></li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-accent" /><span>{t("contact.info.commitment.quote")}</span></li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-accent" /><span>{t("contact.info.commitment.email")}</span></li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-accent" /><span>{t("contact.info.commitment.emergency")}</span></li>
                 </ul>
               </div>
             </motion.div>

@@ -44,6 +44,81 @@
     "signOut": "Déconnexion",
     "dashboard": "Tableau de bord"
   },
+  "about": {
+    "hero": {
+      "title": "Notre Histoire : Plus Qu'un Simple Transport",
+      "subtitle": "Découvrez le parcours qui a donné vie à Sunuvan et les valeurs qui nous animent au quotidien."
+    },
+    "story": {
+      "title": "Né d'une Vision",
+      "p1": "Sunuvan est né d'une frustration. En voyant des amis touristes lutter avec les transports locaux pour leurs circuits, et des familles sénégalaises peiner à trouver un transport fiable et confortable pour leurs événements, nous avons réalisé qu'il manquait une offre structurée.",
+      "p2": "Lancé en 2025, Sunuvan parie sur la qualité de service et la fiabilité. Le nom lui-même est une contraction de \"Sunu\" qui signifie \"Notre\" en Wolof, et \"Van\". Littéralement \"Notre Van\", une marque qui évoque un sentiment d'appartenance collective, de confiance et de service de proximité.",
+      "quote": "\"Chez Sunuvan, nous ne faisons pas que vous conduire d'un point A à un point B. Nous vous accompagnons pour que votre voyage au Sénégal devienne une expérience inoubliable, dès le premier kilomètre.\"",
+      "est": "Est. 2025",
+      "location": "Dakar, Sénégal"
+    },
+    "mission": {
+      "title": "Notre Mission",
+      "description": "Offrir à nos clients, qu'ils soient internationaux ou locaux, une expérience de transport sereine, sécurisée et confortable, leur permettant de découvrir le Sénégal ou de voyager pour affaires sans le moindre stress."
+    },
+    "vision": {
+      "title": "Notre Vision",
+      "description": "Devenir la référence de la location de van avec chauffeur au Sénégal, reconnue pour son professionnalisme, son intégrité et sa contribution positive à l'image touristique du pays."
+    },
+    "values": {
+      "title": "Nos Valeurs Fondamentales",
+      "subtitle": "Les principes qui guident chaque voyage que nous effectuons avec vous.",
+      "items": {
+        "teranga": {
+          "title": "Téranga",
+          "subtitle": "Valeur Cardinale",
+          "description": "L'hospitalité sénégalaise n'est pas un slogan, c'est notre façon d'accueillir chaque client comme un invité d'honneur. Nous allons au-delà du simple service."
+        },
+        "reliability": {
+          "title": "Fiabilité",
+          "subtitle": "Notre Promesse",
+          "description": "Nous tenons nos engagements. Un véhicule à l'heure, en parfait état, et un chauffeur professionnel sont notre promesse minimale."
+        },
+        "safety": {
+          "title": "Sécurité",
+          "subtitle": "Non Négociable",
+          "description": "Nos chauffeurs sont rigoureusement sélectionnés et formés, et nos véhicules sont entretenus avec la plus grande rigueur."
+        },
+        "excellence": {
+          "title": "Excellence",
+          "subtitle": "Notre Standard",
+          "description": "Nous cherchons toujours à dépasser les attentes, que ce soit par une petite attention, une flexibilité de dernière minute ou un conseil avisé."
+        }
+      }
+    },
+    "differentiators": {
+      "title": "Qu'est-ce qui Différencie Sunuvan ?",
+      "subtitle": "Nous ne sommes pas juste une autre société de transport. Voici ce qui nous distingue.",
+      "items": {
+        "formal": {
+          "title": "Professionnalisation du Secteur Informel",
+          "description": "Contrairement aux \"clandos\" et acteurs non structurés, Sunuvan est une entreprise enregistrée avec assurances, contrats et comptabilité transparente. Nos clients ont l'esprit tranquille."
+        },
+        "ambassadors": {
+          "title": "Nos Chauffeurs, Véritables Ambassadeurs",
+          "description": "Pas de simples conducteurs. Ce sont des professionnels formés à l'hospitalité, discrets, ponctuels et ayant une connaissance approfondie du terrain. Ils sont le visage de notre Téranga."
+        },
+        "turnkey": {
+          "title": "Service Clé en Main & Personnalisable",
+          "description": "Nous ne vendons pas un trajet A vers B, nous vendons une solution. Nous construisons l'itinéraire avec vous, suggérons des arrêts et nous adaptons à vos imprévus."
+        },
+        "bridge": {
+          "title": "Le Pont Entre les Mondes",
+          "description": "Nous comprenons à la fois les attentes touristiques internationales (confort, ponctualité) et les réalités locales (besoins familiaux, événements). Nous parlons les deux langages, au propre comme au figuré."
+        }
+      }
+    },
+    "cta": {
+      "title": "Prêt à Vivre la Téranga sur la Route ?",
+      "description": "Réservez votre voyage aujourd'hui et découvrez pourquoi Sunuvan est le choix de confiance pour le transport au Sénégal.",
+      "button": "Réserver Votre Voyage"
+    }
+  },
   "hero": {
     "title": "Voyagez avec Excellence",
     "subtitle": "Service de transport premium au Sénégal",
@@ -71,44 +146,207 @@
     }
   },
   "fleet": {
-    "title": "Notre Flotte",
-    "subtitle": "Des véhicules pour tous vos besoins",
+    "title": "Notre Flotte Premium",
+    "subtitle": "Véhicules modernes et bien entretenus pour tous les besoins. Du transfert intime aux aventures en grand groupe.",
     "categories": {
       "all": "Tous",
+      "standard": "Standard",
+      "premium": "Premium",
+      "van": "Minibus",
       "sedan": "Berlines",
       "suv": "SUV",
-      "van": "Minibus",
       "luxury": "Luxe"
     },
-    "bookVehicle": "Réserver ce véhicule",
+    "amenities": {
+      "ac": "Climatisation",
+      "wifi": "WiFi",
+      "usb": "Chargeur USB",
+      "water": "Eau fraîche"
+    },
+    "filter": "Filtrer :",
+    "loading": "Chargement de la flotte...",
+    "empty": "Aucun véhicule disponible pour le moment",
+    "noImage": "Image non disponible",
+    "bookVehicle": "Réserver",
+    "dailyRate": "{{price}} FCFA/jour",
     "viewDetails": "Voir détails",
     "available": "Disponible",
     "unavailable": "Indisponible",
     "onTrip": "En course",
-    "maintenance": "En maintenance"
+    "maintenance": "En maintenance",
+    "loginToFav": "Connectez-vous pour ajouter aux favoris",
+    "removedFav": "Retiré des favoris",
+    "addedFav": "Ajouté aux favoris"
   },
   "services": {
-    "title": "Nos Services",
-    "subtitle": "Solutions de transport adaptées à vos besoins",
+    "title": "Services & Tarifs",
+    "subtitle": "Tarification transparente et tout compris pour chaque trajet. Un prix juste pour un service excellent.",
+    "cta": "Obtenir un Devis",
+    "indicativePricing": "Tarification Indicative",
+    "customQuote": "Devis sur mesure",
+    "contactUsPrice": "Nous contacter",
+    "fromPrice": "À partir de {{price}} FCFA",
+    "items": {
+      "transfers": {
+        "title": "Transferts Standards",
+        "description": "Service porte-à-porte pour récupérations aéroport, transferts hôtel et trajets point-à-point.",
+        "p1": "Aéroport AIBD ↔ Dakar",
+        "p2": "Aéroport AIBD ↔ Saly",
+        "p3": "Aéroport AIBD ↔ Lac Rose"
+      },
+      "daily": {
+        "title": "Location Journalière",
+        "description": "Location journée complète avec chauffeur professionnel. Parfait pour le tourisme, les affaires ou les sorties en famille.",
+        "p1": "Forfait Base (8h / 200km)",
+        "p2": "Heure Supplémentaire",
+        "p3": "Kilomètre Supplémentaire"
+      },
+      "tours": {
+        "title": "Circuits & Excursions",
+        "description": "Découvrez les trésors du Sénégal avec nos forfaits touristiques. Itinéraires personnalisables disponibles.",
+        "p1": "Île de Gorée + Tour Dakar",
+        "p2": "Découverte Lac Rose",
+        "p3": "Circuits Multi-jours"
+      },
+      "events": {
+        "title": "Services Événementiels",
+        "description": "Transport spécial pour mariages, baptêmes, réunions de famille et célébrations.",
+        "p1": "Forfait Mariage (4h)",
+        "p2": "Baptême / Événements",
+        "p3": "Journée Complète"
+      },
+      "corporate": {
+        "title": "Services Entreprise",
+        "description": "Solutions de transport professionnelles pour les entreprises. Transferts de délégation, séminaires et contrats mensuels.",
+        "p1": "Transfert Délégation",
+        "p2": "Navettes Séminaire",
+        "p3": "Location Mensuelle"
+      }
+    },
+    "philosophy": {
+      "surprises": {
+        "title": "Pas de Surprises",
+        "description": "Devis détaillé et ferme avant toute réservation"
+      },
+      "hidden": {
+        "title": "Pas de Frais Cachés",
+        "description": "Tout est inclus dans le prix annoncé"
+      },
+      "flexible": {
+        "title": "Paiement Flexible",
+        "description": "Acompte 30%, solde en fin de service"
+      },
+      "options": {
+        "title": "Options de Paiement",
+        "description": "Espèces, Mobile Money (Orange, Wave), Virement"
+      }
+    },
+    "terms": {
+      "title": "Conditions Claires & Justes",
+      "subtitle": "Nous croyons en la transparence. Voici nos conditions clairement exposées.",
+      "reservation": {
+        "title": "Réservation & Paiement",
+        "l1": "Acompte : 30% pour confirmer le service",
+        "l2": "Solde : Paiement en fin de service au chauffeur",
+        "l3": "Méthodes : Espèces, Mobile Money, Virement"
+      },
+      "cancellation": {
+        "title": "Annulation & Modification",
+        "l1": "Annulation > 48h : Remboursement total acompte",
+        "l2": "Annulation 24-48h : Remboursement 50% acompte",
+        "l3": "Annulation < 24h : Acompte non remboursable",
+        "l4": "Modification : Gratuite, selon disponibilité"
+      },
+      "client": {
+        "title": "Responsabilités Client",
+        "l1": "Respect de l'itinéraire convenu",
+        "l2": "Préavis pour les arrêts",
+        "l3": "Respect du véhicule"
+      },
+      "commitment": {
+        "title": "Engagement Sunuvan",
+        "l1": "Ponctualité : Véhicule présent à l'heure",
+        "l2": "Propreté & Confort",
+        "l3": "Sécurité : Chauffeur pro",
+        "l4": "Flexibilité : Adaptation aux imprévus"
+      }
+    },
     "airport": {
       "title": "Transferts Aéroport",
       "description": "Service ponctuel de/vers l'aéroport Blaise Diagne"
+    }
+  },
+  "faq": {
+    "hero": {
+      "title": "Foire Aux Questions",
+      "description": "Trouvez des réponses aux questions courantes sur nos services, notre processus de réservation et nos politiques."
     },
-    "daily": {
-      "title": "Location Journalière",
-      "description": "Véhicule avec chauffeur pour vos déplacements quotidiens"
+    "searchPlaceholder": "Rechercher une réponse...",
+    "noResults": "Aucune question trouvée correspondant à votre recherche.",
+    "clearFilters": "Effacer les filtres",
+    "cta": {
+      "title": "Encore des Questions ?",
+      "description": "Vous ne trouvez pas la réponse que vous cherchez ? Notre équipe est là pour vous aider.",
+      "contact": "Nous Contacter",
+      "whatsapp": "Nous écrire sur WhatsApp"
     },
-    "tours": {
-      "title": "Circuits Touristiques",
-      "description": "Découvrez le Sénégal avec nos guides experts"
-    },
-    "corporate": {
-      "title": "Services Entreprise",
-      "description": "Solutions de transport pour professionnels"
-    },
-    "events": {
-      "title": "Événements",
-      "description": "Mariages, cérémonies et occasions spéciales"
+    "categories": {
+      "all": "Toutes",
+      "booking": {
+        "title": "Processus de Réservation",
+        "q1": "Comment réserver un van ?",
+        "a1": "Vous pouvez réserver via notre site web en remplissant le formulaire de contact, ou nous joindre directement par téléphone ou WhatsApp. Nous vous fournirons un devis détaillé sous 2 heures pendant les heures d'ouverture.",
+        "q2": "Quelles informations sont nécessaires pour un devis ?",
+        "a2": "Nous avons besoin de vos dates de voyage, du nombre de passagers, des lieux de prise en charge et de dépose, et de toute demande spéciale.",
+        "q3": "Combien de temps à l'avance dois-je réserver ?",
+        "a3": "Nous recommandons de réserver au moins 48 heures à l'avance pour les transferts standards, et 1 à 2 semaines pour les circuits ou événements en haute saison.",
+        "q4": "Puis-je modifier ma réservation après confirmation ?",
+        "a4": "Oui, les modifications sont gratuites sous réserve de disponibilité. Veuillez nous informer dès que possible de tout changement."
+      },
+      "pricing": {
+        "title": "Tarification & Paiement",
+        "q1": "Qu'est-ce qui est inclus dans vos prix ?",
+        "a1": "Tous nos prix incluent : chauffeur professionnel, carburant, péages, assurance, frais de parking et eau fraîche. Pas de frais cachés.",
+        "q2": "Quels moyens de paiement acceptez-vous ?",
+        "a2": "Nous acceptons les espèces (FCFA, EUR), le Mobile Money (Orange Money, Wave) et les virements bancaires. Un acompte de 30% confirme votre réservation.",
+        "q3": "Offrez-vous des réductions pour les locations longue durée ?",
+        "a3": "Oui, nous proposons des tarifs spéciaux pour les locations hebdomadaires et mensuelles, ainsi que pour les contrats d'entreprise.",
+        "q4": "Les pourboires sont-ils attendus ?",
+        "a4": "Les pourboires ne sont pas inclus et sont entièrement à votre discrétion. Ils sont appréciés mais jamais exigés."
+      },
+      "services": {
+        "title": "Services",
+        "q1": "Quelles zones couvrez-vous ?",
+        "a1": "Nous couvrons tout le territoire sénégalais, des courts transferts aéroport aux circuits de plusieurs jours à travers le pays.",
+        "q2": "Puis-je modifier mon itinéraire pendant le voyage ?",
+        "a2": "Absolument ! La flexibilité est l'une de nos valeurs fondamentales. Discutez-en simplement avec votre chauffeur.",
+        "q3": "Fournissez-vous des sièges enfants ?",
+        "a3": "Oui, sur demande. Veuillez préciser l'âge des enfants lors de la réservation.",
+        "q4": "Assurez-vous les prises en charge aéroport tardives ?",
+        "a4": "Oui, nous opérons 24/7 pour les transferts aéroport et suivons les arrivées de vols."
+      },
+      "vehicles": {
+        "title": "Véhicules & Chauffeurs",
+        "q1": "Quels types de véhicules avez-vous ?",
+        "a1": "Notre flotte comprend des vans standards, des vans premium (Mercedes Classe V) et des minibus. Tous climatisés et assurés.",
+        "q2": "Vos chauffeurs sont-ils qualifiés ?",
+        "a2": "Absolument. Tous nos chauffeurs sont professionnels, assurés et formés à l'hospitalité.",
+        "q3": "Le chauffeur parle-t-il anglais/français ?",
+        "a3": "Tous nos chauffeurs parlent français couramment. Beaucoup parlent aussi anglais.",
+        "q4": "Y a-t-il du WiFi dans les véhicules ?",
+        "a4": "Les vans premium incluent le WiFi. Pour les autres, c'est sur demande."
+      },
+      "terms": {
+        "title": "Conditions Générales",
+        "q1": "Quelle est votre politique d'annulation ?",
+        "a1": "Annulation > 48h : remboursement complet de l'acompte. 24-48h : 50%. < 24h : acompte non remboursable.",
+        "q2": "Que se passe-t-il si mon vol est retardé ?",
+        "a2": "Nous suivons les vols. Pas de frais supplémentaires pour les retards raisonnables.",
+        "q3": "Y a-t-il un temps d'attente inclus ?",
+        "a3": "Aéroport : 60 min incluses. Autres : 15 min incluses.",
+        "q4": "Que se passe-t-il en cas de panne ?",
+        "a4": "Nous envoyons immédiatement un véhicule de remplacement."
+      }
     }
   },
   "booking": {
@@ -134,16 +372,75 @@
   },
   "contact": {
     "title": "Contactez-nous",
-    "subtitle": "Nous sommes à votre écoute",
-    "name": "Nom complet",
-    "email": "Adresse email",
-    "phone": "Téléphone",
-    "message": "Message",
-    "send": "Envoyer le message",
-    "messageSent": "Message envoyé avec succès",
-    "address": "Adresse",
-    "hours": "Horaires",
-    "availability": "Disponible 24h/24, 7j/7"
+    "subtitle": "Nous sommes à votre écoute pour toute question ou demande de devis.",
+    "heroTitle": "Demander un Devis",
+    "form": {
+      "name": "Nom complet *",
+      "email": "Email *",
+      "phone": "Téléphone *",
+      "service": "Service souhaité *",
+      "travelDate": "Date de voyage",
+      "passengers": "Nombre de passagers",
+      "pickup": "Lieu de prise en charge",
+      "dropoff": "Destination",
+      "message": "Message / Demandes spéciales *",
+      "submit": "Envoyer le message",
+      "submitting": "Envoi en cours...",
+      "successTitle": "Message envoyé !",
+      "successDesc": "Nous vous répondrons dans les plus brefs délais.",
+      "errorTitle": "Erreur",
+      "errorDesc": "Une erreur est survenue. Veuillez réessayer.",
+      "placeholders": {
+        "name": "Votre nom",
+        "email": "votre@email.com",
+        "phone": "+221 77 XXX XX XX",
+        "selectService": "Sélectionner un service",
+        "passengers": "Ex: 4",
+        "pickup": "Ex: Aéroport AIBD",
+        "dropoff": "Ex: Hôtel Terrou-Bi, Dakar",
+        "message": "Dites-nous en plus sur votre voyage..."
+      }
+    },
+    "methods": {
+      "phone": {
+        "title": "Téléphone",
+        "subtext": "Disponible 7j/7, 8h - 20h"
+      },
+      "email": {
+        "title": "Email",
+        "subtext": "Réponse sous 24h"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "subtext": "Réponses rapides"
+      },
+      "coverage": {
+        "title": "Couverture",
+        "value": "Tout le Sénégal",
+        "subtext": "Basé à Dakar"
+      }
+    },
+    "info": {
+      "hours": {
+        "title": "Horaires d'ouverture",
+        "week": "Lundi - Dimanche",
+        "whatsapp": "Support WhatsApp"
+      },
+      "commitment": {
+        "title": "Notre engagement",
+        "quote": "Devis sous 2h en heures ouvrées",
+        "email": "Réponse email sous 24h",
+        "emergency": "WhatsApp pour les urgences"
+      }
+    },
+    "services": {
+      "airport": "Transfert Aéroport",
+      "daily": "Location Journalière",
+      "tour": "Excursion / Tour",
+      "wedding": "Mariage / Événement",
+      "corporate": "Service Entreprise",
+      "other": "Autre"
+    }
   },
   "dashboard": {
     "welcome": "Bienvenue",
@@ -208,5 +505,91 @@
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation",
     "copyright": "© 2024 Sunuvan. Tous droits réservés."
+  },
+  "index": {
+    "hero": {
+      "tag": "Location de van premium au Sénégal",
+      "title": "Voyagez en Sérénité,",
+      "highlight": "Vivez le Sénégal",
+      "suffix": "en Liberté",
+      "description": "Location de van premium avec chauffeur. Voyages sans stress à travers le Sénégal pour touristes, familles et entreprises. Découvrez la chaleur de la Teranga sénégalaise.",
+      "discoverFleet": "Découvrir la Flotte",
+      "servicesAndRates": "Services & Tarifs",
+      "allInclusive": "Tarifs tout inclus",
+      "proDrivers": "Chauffeurs professionnels",
+      "support247": "Support 24/7"
+    },
+    "differentiators": {
+      "title": "Pourquoi Choisir Sunuvan ?",
+      "subtitle": "Découvrez la différence d'un transport premium et professionnel qui privilégie votre confort et votre tranquillité d'esprit.",
+      "items": {
+        "serenity": {
+          "title": "Sérénité Tout-Inclus",
+          "subtitle": "Nous gérons tout, vous profitez de tout",
+          "description": "Tarification transparente incluant chauffeur, carburant, péages, assurance, parking et eau. Pas de surprises."
+        },
+        "expertise": {
+          "title": "Expertise Chauffeur-Ambassadeur",
+          "subtitle": "Votre premier contact avec la Teranga sénégalaise",
+          "description": "Chauffeurs professionnellement formés, discrets, ponctuels et experts du terrain."
+        },
+        "flexibility": {
+          "title": "Flexibilité Absolue",
+          "subtitle": "Votre itinéraire, vos règles",
+          "description": "Pas d'horaires fixes (sauf vols). Modifiez les arrêts, changez de route à votre guise."
+        },
+        "comfort": {
+          "title": "Confort & Sécurité",
+          "subtitle": "Un sanctuaire roulant après chaque aventure",
+          "description": "Vans spacieux, climatisés et rigoureusement entretenus. Conduite calme et parfaite connaissance des routes."
+        },
+        "culture": {
+          "title": "Pont Entre les Mondes",
+          "subtitle": "Comprendre les attentes internationales",
+          "description": "Professionnalisme et confort pour touristes combinés à l'authenticité et la compréhension des réalités locales."
+        }
+      }
+    },
+    "coverage": {
+      "title": "Nous Couvrons Tout le Sénégal",
+      "subtitle": "Des transferts aéroport aux aventures de plusieurs jours, nous vous emmenons partout au Sénégal avec confort et fiabilité.",
+      "note": "Sans limite de distance :",
+      "noteDetail": "Des transferts de 30km aux circuits de 1500km sur 10 jours",
+      "areas": {
+        "dakar": {
+          "title": "Dakar & Région",
+          "loc1": "Aéroport Blaise Diagne (AIBD)",
+          "loc2": "Tous les quartiers de Dakar",
+          "loc3": "Saly, Lac Rose et environs"
+        },
+        "tours": {
+          "title": "Circuits Touristiques",
+          "loc1": "Saint-Louis",
+          "loc2": "Petite Côte (Saly, Somone, Ngaparou)",
+          "loc3": "Sine-Saloum (Toubacouta, Ndangane)",
+          "loc4": "Cap Skirring"
+        },
+        "adventure": {
+          "title": "Destinations Aventure",
+          "loc1": "Pays Bassari",
+          "loc2": "Casamance profonde",
+          "loc3": "Destinations reculées de l'intérieur"
+        }
+      }
+    },
+    "featured": {
+      "title": "Notre Flotte Premium",
+      "subtitle": "Véhicules modernes et bien entretenus pour tous les besoins et toutes les tailles de groupe.",
+      "viewAll": "Voir Tous les Véhicules",
+      "viewDetails": "Voir Détails",
+      "from": "À partir de",
+      "day": "/jour"
+    },
+    "cta": {
+      "title": "Prêt pour un Voyage Sans Stress ?",
+      "description": "Contactez-nous pour un devis personnalisé. Découvrez le confort et la fiabilité de Sunuvan pour votre prochain voyage au Sénégal.",
+      "getQuote": "Obtenir un Devis",
+      "callUs": "Appelez-nous"
+    }
   }
 }
