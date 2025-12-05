@@ -38,7 +38,86 @@
     "services": "Services",
     "about": "About",
     "contact": "Contact",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "book": "Book Now",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard"
+  },
+  "about": {
+    "hero": {
+      "title": "Our Story: More Than Just Transport",
+      "subtitle": "Discover the journey that brought Sunuvan to life and the values that drive us every day."
+    },
+    "story": {
+      "title": "Born from a Vision",
+      "p1": "Sunuvan was born from a frustration. Seeing tourist friends struggle with local transport for their tours, and Senegalese families struggling to find reliable and comfortable transport for their events, we realized there was a lack of structured offering.",
+      "p2": "Launched in 2025, Sunuvan bets on service quality and reliability. The name itself is a contraction of \"Sunu\" which means \"Our\" in Wolof, and \"Van\". Literally \"Our Van\", a brand that evokes a sense of collective ownership, trust, and close service.",
+      "quote": "\"At Sunuvan, we don't just drive you from point A to point B. We accompany you so your journey in Senegal becomes an unforgettable experience, from the first kilometer.\"",
+      "est": "Est. 2025",
+      "location": "Dakar, Senegal"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "Offer our clients, whether international or local, a serene, secure, and comfortable transport experience, allowing them to discover Senegal or travel for business without the slightest stress."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "Become the reference for van rental with driver in Senegal, recognized for our professionalism, integrity, and positive contribution to the country's tourist image."
+    },
+    "values": {
+      "title": "Our Core Values",
+      "subtitle": "The principles that guide every journey we take with you.",
+      "items": {
+        "teranga": {
+          "title": "Teranga",
+          "subtitle": "Cardinal Value",
+          "description": "Senegalese hospitality is not a slogan, it's our way of welcoming each client as an honored guest. We go beyond simple service."
+        },
+        "reliability": {
+          "title": "Reliability",
+          "subtitle": "Our Promise",
+          "description": "We keep our commitments. A vehicle on time, in perfect condition, and a professional driver are our minimum promise."
+        },
+        "safety": {
+          "title": "Safety",
+          "subtitle": "Non-Negotiable",
+          "description": "Our drivers are rigorously selected and trained, and our vehicles are maintained with the greatest rigor."
+        },
+        "excellence": {
+          "title": "Excellence",
+          "subtitle": "Our Standard",
+          "description": "We always aim to exceed expectations, whether through a small gesture, last-minute flexibility, or informed advice."
+        }
+      }
+    },
+    "differentiators": {
+      "title": "What Makes Sunuvan Different?",
+      "subtitle": "We're not just another transport company. Here's what sets us apart.",
+      "items": {
+        "formal": {
+          "title": "Professionalization of the Informal Sector",
+          "description": "Unlike \"clandos\" and unstructured actors, Sunuvan is a registered company with insurance, contracts, and transparent accounting. Our clients have peace of mind."
+        },
+        "ambassadors": {
+          "title": "Our Drivers, True Ambassadors",
+          "description": "Not just drivers. They are professionals trained in hospitality, discreet, punctual, and with deep knowledge of the terrain. They are the face of our Teranga."
+        },
+        "turnkey": {
+          "title": "Turnkey & Customizable Service",
+          "description": "We don't sell an A-to-B trip, we sell a solution. We build the itinerary with you, suggest stops, and adapt to your unforeseen events."
+        },
+        "bridge": {
+          "title": "The Bridge Between Worlds",
+          "description": "We understand both international tourist expectations (comfort, punctuality) and local client realities (family needs, events). We speak both languages, literally and figuratively."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Experience Teranga on Wheels?",
+      "description": "Book your journey today and discover what makes Sunuvan the trusted choice for transportation in Senegal.",
+      "button": "Book Your Journey"
+    }
   },
   "hero": {
     "title": "Travel with Excellence",
@@ -67,44 +146,207 @@
     }
   },
   "fleet": {
-    "title": "Our Fleet",
-    "subtitle": "Vehicles for all your needs",
+    "title": "Our Premium Fleet",
+    "subtitle": "Modern, well-maintained vehicles for every need. From intimate transfers to large group adventures.",
     "categories": {
       "all": "All",
+      "standard": "Standard",
+      "premium": "Premium",
+      "van": "Minibus",
       "sedan": "Sedans",
       "suv": "SUVs",
-      "van": "Vans",
       "luxury": "Luxury"
     },
-    "bookVehicle": "Book this vehicle",
-    "viewDetails": "View details",
+    "amenities": {
+      "ac": "AC",
+      "wifi": "WiFi",
+      "usb": "USB Charger",
+      "water": "Fresh Water"
+    },
+    "filter": "Filter:",
+    "loading": "Loading fleet...",
+    "empty": "No vehicles available at the moment",
+    "noImage": "Image not available",
+    "bookVehicle": "Book",
+    "dailyRate": "{{price}} FCFA/day",
+    "viewDetails": "View Details",
     "available": "Available",
     "unavailable": "Unavailable",
-    "onTrip": "On trip",
-    "maintenance": "Maintenance"
+    "onTrip": "On Trip",
+    "maintenance": "Maintenance",
+    "loginToFav": "Login to add to favorites",
+    "removedFav": "Removed from favorites",
+    "addedFav": "Added to favorites"
   },
   "services": {
-    "title": "Our Services",
-    "subtitle": "Transportation solutions tailored to your needs",
+    "title": "Services & Pricing",
+    "subtitle": "Transparent, all-inclusive pricing for every journey. A fair price for excellent service.",
+    "cta": "Get a Quote",
+    "indicativePricing": "Indicative Pricing",
+    "customQuote": "Custom Quote",
+    "contactUsPrice": "Contact Us",
+    "fromPrice": "From {{price}} FCFA",
+    "items": {
+      "transfers": {
+        "title": "Standard Transfers",
+        "description": "Door-to-door transfer service for airport pickups, hotel transfers, and point-to-point journeys.",
+        "p1": "AIBD Airport ↔ Dakar",
+        "p2": "AIBD Airport ↔ Saly",
+        "p3": "AIBD Airport ↔ Lac Rose"
+      },
+      "daily": {
+        "title": "Daily Rental",
+        "description": "Full-day rental with professional driver. Perfect for sightseeing, business meetings, or family outings.",
+        "p1": "Base Package (8h / 200km)",
+        "p2": "Overtime",
+        "p3": "Extra kilometers"
+      },
+      "tours": {
+        "title": "Tours & Excursions",
+        "description": "Discover Senegal's treasures with our guided tour packages. Customizable itineraries available.",
+        "p1": "Gorée Island + Dakar Tour",
+        "p2": "Lac Rose Discovery",
+        "p3": "Multi-day Circuits"
+      },
+      "events": {
+        "title": "Event Services",
+        "description": "Special transportation for weddings, baptisms, family reunions, and celebrations.",
+        "p1": "Wedding Package (4h)",
+        "p2": "Baptism / Family Events",
+        "p3": "Full-day Event"
+      },
+      "corporate": {
+        "title": "Corporate Services",
+        "description": "Professional transportation solutions for businesses. Delegation transfers, seminars, and monthly contracts.",
+        "p1": "Delegation Transfer",
+        "p2": "Seminar Shuttles",
+        "p3": "Monthly Rental"
+      }
+    },
+    "philosophy": {
+      "surprises": {
+        "title": "No Surprises",
+        "description": "Detailed, firm quote before any reservation"
+      },
+      "hidden": {
+        "title": "No Hidden Fees",
+        "description": "Everything included in the announced price"
+      },
+      "flexible": {
+        "title": "Flexible Payment",
+        "description": "30% deposit, balance at end of service"
+      },
+      "options": {
+        "title": "Payment Options",
+        "description": "Cash, Mobile Money (Orange, Wave), Bank Transfer"
+      }
+    },
+    "terms": {
+      "title": "Clear & Fair Conditions",
+      "subtitle": "We believe in transparency. Here are our terms clearly laid out.",
+      "reservation": {
+        "title": "Reservation & Payment",
+        "l1": "Deposit: 30% to confirm the service",
+        "l2": "Balance: Payment at end of service to driver",
+        "l3": "Methods: Cash, Mobile Money, Bank Transfer"
+      },
+      "cancellation": {
+        "title": "Cancellation & Modification",
+        "l1": "Cancellation > 48h: Full deposit refund",
+        "l2": "Cancellation 24-48h: 50% deposit refund",
+        "l3": "Cancellation < 24h: Deposit non-refundable",
+        "l4": "Modification: Free, subject to availability"
+      },
+      "client": {
+        "title": "Client Responsibilities",
+        "l1": "Respect agreed itinerary",
+        "l2": "Advance notice for stops",
+        "l3": "Vehicle respect (damages will be charged)"
+      },
+      "commitment": {
+        "title": "Sunuvan Commitment",
+        "l1": "Punctuality: Vehicle present at agreed time/place",
+        "l2": "Cleanliness & Comfort: Clean vehicle, optimal fuel/AC",
+        "l3": "Safety: Professional driver, perfect vehicle condition",
+        "l4": "Flexibility: Adapt to reasonable unforeseen events"
+      }
+    },
     "airport": {
       "title": "Airport Transfers",
       "description": "Punctual service to/from Blaise Diagne airport"
+    }
+  },
+  "faq": {
+    "hero": {
+      "title": "Frequently Asked Questions",
+      "description": "Find answers to common questions about our services, booking process, and policies."
     },
-    "daily": {
-      "title": "Daily Rental",
-      "description": "Vehicle with driver for your daily travels"
+    "searchPlaceholder": "Search for answers...",
+    "noResults": "No questions found matching your search.",
+    "clearFilters": "Clear filters",
+    "cta": {
+      "title": "Still Have Questions?",
+      "description": "Can't find the answer you're looking for? Our team is here to help.",
+      "contact": "Contact Us",
+      "whatsapp": "WhatsApp Us"
     },
-    "tours": {
-      "title": "Tourist Tours",
-      "description": "Discover Senegal with our expert guides"
-    },
-    "corporate": {
-      "title": "Corporate Services",
-      "description": "Transportation solutions for professionals"
-    },
-    "events": {
-      "title": "Events",
-      "description": "Weddings, ceremonies and special occasions"
+    "categories": {
+      "all": "All",
+      "booking": {
+        "title": "Booking Process",
+        "q1": "How do I book a van?",
+        "a1": "You can book through our website by filling out the contact form, or reach us directly via phone or WhatsApp. We'll provide a detailed quote within 2 hours during business hours.",
+        "q2": "What information do you need for a quote?",
+        "a2": "We need your travel dates, number of passengers, pickup and drop-off locations, and any special requirements.",
+        "q3": "How far in advance should I book?",
+        "a3": "We recommend booking at least 48 hours in advance for standard transfers, and 1-2 weeks ahead for tours or events.",
+        "q4": "Can I modify my booking after confirmation?",
+        "a4": "Yes, modifications are free subject to availability. Please inform us as soon as possible about any changes."
+      },
+      "pricing": {
+        "title": "Pricing & Payment",
+        "q1": "What's included in your prices?",
+        "a1": "All our prices include: professional driver, fuel, tolls, insurance, parking fees, and fresh water. No hidden fees.",
+        "q2": "What payment methods do you accept?",
+        "a2": "We accept cash (FCFA, EUR), Mobile Money (Orange Money, Wave), and bank transfers. A 30% deposit confirms your booking.",
+        "q3": "Do you offer discounts for long-term rentals?",
+        "a3": "Yes, we offer special rates for weekly and monthly rentals, as well as corporate contracts.",
+        "q4": "Are tips expected for drivers?",
+        "a4": "Tips are not included and are entirely at your discretion. They are appreciated but never expected."
+      },
+      "services": {
+        "title": "Services",
+        "q1": "What areas do you cover?",
+        "a1": "We cover the entire Senegalese territory, from airport transfers to multi-day tours across the country.",
+        "q2": "Can I modify my itinerary during the trip?",
+        "a2": "Absolutely! Flexibility is one of our core values. Just communicate with your driver.",
+        "q3": "Do you provide child seats?",
+        "a3": "Yes, upon request. Please specify ages when booking.",
+        "q4": "Can you arrange airport pickups for late-night flights?",
+        "a4": "Yes, we operate 24/7 for airport transfers and monitor flight arrivals."
+      },
+      "vehicles": {
+        "title": "Vehicles & Drivers",
+        "q1": "What types of vehicles do you have?",
+        "a1": "Our fleet includes standard vans, premium vans (Mercedes V-Class), and minibuses. All air-conditioned and insured.",
+        "q2": "Are your drivers licensed and insured?",
+        "a2": "Absolutely. All drivers are professionally licensed, insured, and trained in hospitality.",
+        "q3": "Can the driver speak English/French?",
+        "a3": "All drivers speak fluent French. Many also speak English.",
+        "q4": "Are vehicles equipped with WiFi?",
+        "a4": "Premium vans include WiFi. For others, it can be arranged upon request."
+      },
+      "terms": {
+        "title": "Terms & Conditions",
+        "q1": "What is your cancellation policy?",
+        "a1": "Cancellation > 48h: full refund. 24-48h: 50% refund. < 24h: non-refundable deposit.",
+        "q2": "What happens if my flight is delayed?",
+        "a2": "We monitor flights. No extra charge for reasonable delays.",
+        "q3": "Is there a waiting time included?",
+        "a3": "Airport: 60 mins included. Other: 15 mins included.",
+        "q4": "What if there's a vehicle breakdown?",
+        "a4": "We immediately dispatch a replacement vehicle."
+      }
     }
   },
   "booking": {
@@ -130,16 +372,75 @@
   },
   "contact": {
     "title": "Contact Us",
-    "subtitle": "We're here to help",
-    "name": "Full name",
-    "email": "Email address",
-    "phone": "Phone",
-    "message": "Message",
-    "send": "Send message",
-    "messageSent": "Message sent successfully",
-    "address": "Address",
-    "hours": "Hours",
-    "availability": "Available 24/7"
+    "subtitle": "We're here to help anytime.",
+    "heroTitle": "Request a Quote",
+    "form": {
+      "name": "Full name *",
+      "email": "Email *",
+      "phone": "Phone *",
+      "service": "Desired Service *",
+      "travelDate": "Travel Date",
+      "passengers": "Number of passengers",
+      "pickup": "Pickup Location",
+      "dropoff": "Destination",
+      "message": "Message / Special Requests *",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "successTitle": "Message sent!",
+      "successDesc": "We will get back to you shortly.",
+      "errorTitle": "Error",
+      "errorDesc": "An error occurred. Please try again.",
+      "placeholders": {
+        "name": "Your name",
+        "email": "your@email.com",
+        "phone": "+221 77 XXX XX XX",
+        "selectService": "Select a service",
+        "passengers": "Ex: 4",
+        "pickup": "Ex: AIBD Airport",
+        "dropoff": "Ex: Hotel Terrou-Bi, Dakar",
+        "message": "Tell us more about your trip..."
+      }
+    },
+    "methods": {
+      "phone": {
+        "title": "Phone",
+        "subtext": "Available 7/7, 8am - 8pm"
+      },
+      "email": {
+        "title": "Email",
+        "subtext": "Response within 24h"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "subtext": "Quick response"
+      },
+      "coverage": {
+        "title": "Coverage",
+        "value": "All Senegal",
+        "subtext": "Based in Dakar"
+      }
+    },
+    "info": {
+      "hours": {
+        "title": "Opening Hours",
+        "week": "Monday - Sunday",
+        "whatsapp": "WhatsApp Support"
+      },
+      "commitment": {
+        "title": "Our Commitment",
+        "quote": "Quote within 2h (business hours)",
+        "email": "Email response within 24h",
+        "emergency": "WhatsApp for emergencies"
+      }
+    },
+    "services": {
+      "airport": "Airport Transfer",
+      "daily": "Daily Rental",
+      "tour": "Tour / Excursion",
+      "wedding": "Wedding / Event",
+      "corporate": "Corporate Service",
+      "other": "Other"
+    }
   },
   "dashboard": {
     "welcome": "Welcome",
@@ -198,5 +499,91 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "copyright": "© 2024 Sunuvan. All rights reserved."
+  },
+  "index": {
+    "hero": {
+      "tag": "Premium Van Rental in Senegal",
+      "title": "Travel in Serenity,",
+      "highlight": "Experience Senegal",
+      "suffix": "in Freedom",
+      "description": "Premium chauffeured van rental. Stress-free travel across Senegal for tourists, families, and businesses. Discover the warmth of Senegalese Teranga.",
+      "discoverFleet": "Discover Fleet",
+      "servicesAndRates": "Services & Rates",
+      "allInclusive": "All-inclusive rates",
+      "proDrivers": "Professional drivers",
+      "support247": "24/7 Support"
+    },
+    "differentiators": {
+      "title": "Why Choose Sunuvan?",
+      "subtitle": "Discover the difference of premium, professional transportation that prioritizes your comfort and peace of mind.",
+      "items": {
+        "serenity": {
+          "title": "All-Inclusive Serenity",
+          "subtitle": "We handle everything, you enjoy everything",
+          "description": "Transparent pricing including driver, fuel, tolls, insurance, parking, and water. No surprises."
+        },
+        "expertise": {
+          "title": "Chauffeur-Ambassador Expertise",
+          "subtitle": "Your first contact with Senegalese Teranga",
+          "description": "Professionally trained drivers, discreet, punctual, and local experts."
+        },
+        "flexibility": {
+          "title": "Absolute Flexibility",
+          "subtitle": "Your itinerary, your rules",
+          "description": "No fixed schedules (except flights). Modify stops, change routes as you please."
+        },
+        "comfort": {
+          "title": "Comfort & Safety",
+          "subtitle": "A rolling sanctuary after every adventure",
+          "description": "Spacious, air-conditioned, and rigorously maintained vans. Calm driving and perfect road knowledge."
+        },
+        "culture": {
+          "title": "Bridge Between Worlds",
+          "subtitle": "Understanding international expectations",
+          "description": "Professionalism and comfort for tourists combined with authenticity and understanding of local realities."
+        }
+      }
+    },
+    "coverage": {
+      "title": "We Cover All of Senegal",
+      "subtitle": "From airport transfers to multi-day adventures, we take you everywhere in Senegal with comfort and reliability.",
+      "note": "No distance limit:",
+      "noteDetail": "From 30km transfers to 1500km tours over 10 days",
+      "areas": {
+        "dakar": {
+          "title": "Dakar & Region",
+          "loc1": "Blaise Diagne Airport (AIBD)",
+          "loc2": "All Dakar neighborhoods",
+          "loc3": "Saly, Pink Lake and surroundings"
+        },
+        "tours": {
+          "title": "Tourist Tours",
+          "loc1": "Saint-Louis",
+          "loc2": "Petite Côte (Saly, Somone, Ngaparou)",
+          "loc3": "Sine-Saloum (Toubacouta, Ndangane)",
+          "loc4": "Cap Skirring"
+        },
+        "adventure": {
+          "title": "Adventure Destinations",
+          "loc1": "Bassari Country",
+          "loc2": "Deep Casamance",
+          "loc3": "Remote interior destinations"
+        }
+      }
+    },
+    "featured": {
+      "title": "Our Premium Fleet",
+      "subtitle": "Modern and well-maintained vehicles for all needs and group sizes.",
+      "viewAll": "View All Vehicles",
+      "viewDetails": "View Details",
+      "from": "From",
+      "day": "/day"
+    },
+    "cta": {
+      "title": "Ready for a Stress-Free Trip?",
+      "description": "Contact us for a personalized quote. Discover the comfort and reliability of Sunuvan for your next trip to Senegal.",
+      "getQuote": "Get a Quote",
+      "callUs": "Call Us"
+    }
   }
 }

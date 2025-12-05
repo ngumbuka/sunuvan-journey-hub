@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { 
-  LayoutDashboard, Car, Calendar, Users, UserCog, Settings, LogOut, Plus, Search, 
+import {
+  LayoutDashboard, Car, Calendar, Users, UserCog, Settings, LogOut, Plus, Search,
   MoreHorizontal, TrendingUp, DollarSign, Eye, Pencil, Trash2, X, Mail, BarChart3,
   MessageSquare, CheckCircle, Clock, AlertCircle
 } from "lucide-react";
@@ -196,13 +196,13 @@ function VehicleManagement() {
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div><Label>Nom</Label><Input value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} required /></div>
-                <div><Label>Type</Label><Input value={formData.type} onChange={e => setFormData({...formData, type: e.target.value})} required /></div>
+                <div><Label>Nom</Label><Input value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} required /></div>
+                <div><Label>Type</Label><Input value={formData.type} onChange={e => setFormData({ ...formData, type: e.target.value })} required /></div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label>Catégorie</Label>
-                  <Select value={formData.category} onValueChange={v => setFormData({...formData, category: v})}>
+                  <Select value={formData.category} onValueChange={v => setFormData({ ...formData, category: v })}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="economy">Économique</SelectItem>
@@ -212,13 +212,13 @@ function VehicleManagement() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div><Label>Tarif journalier (FCFA)</Label><Input type="number" value={formData.daily_rate} onChange={e => setFormData({...formData, daily_rate: Number(e.target.value)})} required /></div>
+                <div><Label>Tarif journalier (FCFA)</Label><Input type="number" value={formData.daily_rate} onChange={e => setFormData({ ...formData, daily_rate: Number(e.target.value) })} required /></div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div><Label>Passagers</Label><Input type="number" value={formData.passengers} onChange={e => setFormData({...formData, passengers: Number(e.target.value)})} /></div>
-                <div><Label>Bagages</Label><Input type="number" value={formData.luggage} onChange={e => setFormData({...formData, luggage: Number(e.target.value)})} /></div>
+                <div><Label>Passagers</Label><Input type="number" value={formData.passengers} onChange={e => setFormData({ ...formData, passengers: Number(e.target.value) })} /></div>
+                <div><Label>Bagages</Label><Input type="number" value={formData.luggage} onChange={e => setFormData({ ...formData, luggage: Number(e.target.value) })} /></div>
               </div>
-              <div><Label>Description</Label><Textarea value={formData.description || ""} onChange={e => setFormData({...formData, description: e.target.value})} /></div>
+              <div><Label>Description</Label><Textarea value={formData.description || ""} onChange={e => setFormData({ ...formData, description: e.target.value })} /></div>
               <Button type="submit" className="w-full">{editingVehicle ? "Mettre à jour" : "Ajouter"}</Button>
             </form>
           </DialogContent>
@@ -291,7 +291,7 @@ function BookingManagement() {
   return (
     <div className="space-y-6">
       <h1 className="font-display text-2xl font-bold">Gestion des Réservations</h1>
-      
+
       <div className="bg-card rounded-xl shadow-soft overflow-hidden border border-border/50">
         <table className="w-full">
           <thead className="bg-muted/50">
@@ -389,11 +389,11 @@ function DriverManagement() {
             <DialogHeader><DialogTitle>{editingDriver ? "Modifier" : "Ajouter"} un chauffeur</DialogTitle></DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div><Label>Prénom</Label><Input value={formData.first_name} onChange={e => setFormData({...formData, first_name: e.target.value})} required /></div>
-                <div><Label>Nom</Label><Input value={formData.last_name} onChange={e => setFormData({...formData, last_name: e.target.value})} required /></div>
+                <div><Label>Prénom</Label><Input value={formData.first_name} onChange={e => setFormData({ ...formData, first_name: e.target.value })} required /></div>
+                <div><Label>Nom</Label><Input value={formData.last_name} onChange={e => setFormData({ ...formData, last_name: e.target.value })} required /></div>
               </div>
-              <div><Label>Téléphone</Label><Input value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} required /></div>
-              <div><Label>Email</Label><Input type="email" value={formData.email || ""} onChange={e => setFormData({...formData, email: e.target.value})} /></div>
+              <div><Label>Téléphone</Label><Input value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} required /></div>
+              <div><Label>Email</Label><Input type="email" value={formData.email || ""} onChange={e => setFormData({ ...formData, email: e.target.value })} /></div>
               <Button type="submit" className="w-full">{editingDriver ? "Mettre à jour" : "Ajouter"}</Button>
             </form>
           </DialogContent>
@@ -628,9 +628,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-muted/30 flex">
       <aside className="w-64 bg-primary text-primary-foreground p-6 hidden lg:flex flex-col">
         <Link to="/" className="flex items-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center">
-            <span className="text-accent-foreground font-display font-bold text-xl">S</span>
-          </div>
+          <img src="/logo-sm.png" alt="Sunuvan Admin" className="h-10 w-auto object-contain" />
           <span className="font-display text-xl font-semibold">Admin</span>
         </Link>
 

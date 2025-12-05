@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { 
-  Home, Calendar, Heart, User, LogOut, Plus, ArrowRight, Clock, CheckCircle, 
+import {
+  Home, Calendar, Heart, User, LogOut, Plus, ArrowRight, Clock, CheckCircle,
   XCircle, Car, MapPin, Settings as SettingsIcon, Trash2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -40,12 +40,12 @@ function DashboardOverview() {
     ]);
 
     setProfile(profileRes.data);
-    
+
     const bookings = bookingsRes.data || [];
     const today = new Date().toISOString().split("T")[0];
     const upcoming = bookings.filter(b => b.pickup_date >= today && b.status !== "cancelled").length;
     const past = bookings.filter(b => b.pickup_date < today || b.status === "completed").length;
-    
+
     setStats({ upcoming, past, favorites: favoritesRes.count || 0 });
   }
 
@@ -297,12 +297,12 @@ function ProfilePage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    
+
     const { error } = await supabase
       .from("profiles")
       .update(formData)
       .eq("user_id", user!.id);
-    
+
     setSaving(false);
     if (!error) {
       toast({ title: "Profil mis à jour" });
@@ -324,16 +324,16 @@ function ProfilePage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>Prénom</Label>
-              <Input value={formData.first_name} onChange={e => setFormData({...formData, first_name: e.target.value})} />
+              <Input value={formData.first_name} onChange={e => setFormData({ ...formData, first_name: e.target.value })} />
             </div>
             <div>
               <Label>Nom</Label>
-              <Input value={formData.last_name} onChange={e => setFormData({...formData, last_name: e.target.value})} />
+              <Input value={formData.last_name} onChange={e => setFormData({ ...formData, last_name: e.target.value })} />
             </div>
           </div>
           <div>
             <Label>Téléphone</Label>
-            <Input value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} placeholder="+221 77 123 45 67" />
+            <Input value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} placeholder="+221 77 123 45 67" />
           </div>
           <div>
             <Label>Email</Label>
@@ -350,7 +350,7 @@ function ProfilePage() {
 // Settings
 function SettingsPage() {
   const { t } = useTranslation();
-  
+
   return (
     <div className="space-y-6">
       <h1 className="font-display text-2xl font-bold">{t("dashboard.settings")}</h1>
@@ -400,10 +400,7 @@ export default function Dashboard() {
       {/* Sidebar */}
       <aside className="w-64 bg-card border-r border-border p-6 hidden lg:flex flex-col">
         <Link to="/" className="flex items-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-secondary flex items-center justify-center">
-            <span className="text-accent-foreground font-display font-bold text-xl">S</span>
-          </div>
-          <span className="font-display text-xl font-semibold">Sunuvan</span>
+          <img src="/logo.png" alt="Sunuvan" className="h-12 w-auto object-contain block" />
         </Link>
 
         <nav className="space-y-1 flex-1">

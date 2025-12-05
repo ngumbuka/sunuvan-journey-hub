@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { 
-  Calendar, Clock, MapPin, Users, Briefcase, ArrowLeft, Heart, 
+import {
+  Calendar, Clock, MapPin, Users, Briefcase, ArrowLeft, Heart,
   Snowflake, Wifi, Usb, Droplets, Check, ChevronRight
 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -71,7 +71,7 @@ export default function Booking() {
       .select("*")
       .eq("id", vehicleId)
       .maybeSingle();
-    
+
     if (error || !data) {
       toast({ title: "Véhicule non trouvé", variant: "destructive" });
       navigate("/fleet");
@@ -112,17 +112,17 @@ export default function Booking() {
 
   function calculateTotal() {
     if (!vehicle || !formData.pickup_date) return 0;
-    
+
     const startDate = new Date(formData.pickup_date);
     const endDate = formData.return_date ? new Date(formData.return_date) : startDate;
     const days = Math.max(1, Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1);
-    
+
     return vehicle.daily_rate * days;
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    
+
     if (!user) {
       toast({ title: "Veuillez vous connecter", description: "Vous devez être connecté pour réserver" });
       navigate("/auth");
@@ -193,7 +193,7 @@ export default function Booking() {
             <ArrowLeft className="w-4 h-4" />
             Retour à la flotte
           </Link>
-          
+
           {/* Progress Steps */}
           <div className="flex items-center gap-4 mt-6">
             {[
@@ -202,9 +202,8 @@ export default function Booking() {
               { num: 3, label: "Confirmation" },
             ].map((s, i) => (
               <div key={s.num} className="flex items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                  step >= s.num ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
-                }`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${step >= s.num ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                  }`}>
                   {step > s.num ? <Check className="w-4 h-4" /> : s.num}
                 </div>
                 <span className={`ml-2 text-sm hidden sm:inline ${step >= s.num ? "text-foreground" : "text-muted-foreground"}`}>
@@ -237,11 +236,10 @@ export default function Booking() {
                           key={service.id}
                           type="button"
                           onClick={() => setFormData({ ...formData, service_type: service.id })}
-                          className={`p-4 rounded-xl border-2 text-left transition-all ${
-                            formData.service_type === service.id
+                          className={`p-4 rounded-xl border-2 text-left transition-all ${formData.service_type === service.id
                               ? "border-primary bg-primary/5"
                               : "border-border hover:border-primary/50"
-                          }`}
+                            }`}
                         >
                           <h3 className="font-semibold mb-1">{service.label}</h3>
                           <p className="text-sm text-muted-foreground">{service.description}</p>
@@ -383,7 +381,7 @@ export default function Booking() {
                     className="bg-card rounded-2xl p-6 shadow-soft border border-border/50"
                   >
                     <h2 className="font-display text-xl font-semibold mb-6">Récapitulatif</h2>
-                    
+
                     <div className="space-y-4">
                       <div className="flex justify-between py-3 border-b border-border">
                         <span className="text-muted-foreground">Service</span>
@@ -450,9 +448,8 @@ export default function Booking() {
                   )}
                   <button
                     onClick={toggleFavorite}
-                    className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
-                      isFavorite ? "bg-red-500 text-white" : "bg-card/90 text-muted-foreground hover:text-red-500"
-                    }`}
+                    className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${isFavorite ? "bg-red-500 text-white" : "bg-card/90 text-muted-foreground hover:text-red-500"
+                      }`}
                   >
                     <Heart className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`} />
                   </button>

@@ -36,12 +36,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-secondary flex items-center justify-center">
-              <span className="text-accent-foreground font-display font-bold text-xl">S</span>
-            </div>
-            <span className="font-display text-xl md:text-2xl font-bold text-foreground">
-              Sunuvan
-            </span>
+            <img src="/logo.png" alt="Sunuvan" className="h-12 w-auto object-contain" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -65,7 +60,7 @@ export function Navbar() {
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
-            
+
             {!loading && (
               <>
                 {user ? (
@@ -99,7 +94,7 @@ export function Navbar() {
                 )}
               </>
             )}
-            
+
             <Link to="/fleet">
               <Button variant="hero" size="sm">
                 {t("nav.book")}

@@ -25,7 +25,7 @@ export default function Auth() {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { user, signIn, signUp, loading: authLoading } = useAuth();
-  
+
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +51,7 @@ export default function Auth() {
     try {
       const schema = isLogin ? loginSchema : registerSchema;
       const validationResult = schema.safeParse(formData);
-      
+
       if (!validationResult.success) {
         const fieldErrors: Record<string, string> = {};
         validationResult.error.errors.forEach(err => {
@@ -104,11 +104,8 @@ export default function Auth() {
           className="w-full max-w-md"
         >
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-secondary flex items-center justify-center">
-              <span className="text-accent-foreground font-display font-bold text-xl">S</span>
-            </div>
-            <span className="font-display text-2xl font-semibold text-foreground">Sunuvan</span>
+          <Link to="/" className="flex items-center gap-2 mb-8 no-underline">
+            <img src="/logo.png" alt="Sunuvan" className="h-16 w-auto object-contain mx-auto" />
           </Link>
 
           <h1 className="font-display text-3xl font-bold text-foreground mb-2">

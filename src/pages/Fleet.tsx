@@ -2,16 +2,15 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { 
-  Users, 
-  Briefcase, 
-  Snowflake, 
-  Wifi, 
-  Usb, 
+import {
+  Users,
+  Briefcase,
+  Snowflake,
+  Wifi,
+  Usb,
   Droplets,
   ArrowRight,
   Filter,
-  Check,
   Heart
 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -24,20 +23,6 @@ import type { Tables } from "@/integrations/supabase/types";
 
 type Vehicle = Tables<"vehicles">;
 
-const categories = [
-  { id: "all", label: "Tous" },
-  { id: "standard", label: "Standard" },
-  { id: "premium", label: "Premium" },
-  { id: "minibus", label: "Minibus" },
-];
-
-const amenityIcons: Record<string, { icon: typeof Snowflake; label: string }> = {
-  ac: { icon: Snowflake, label: "Climatisation" },
-  wifi: { icon: Wifi, label: "WiFi" },
-  usb: { icon: Usb, label: "Chargeur USB" },
-  water: { icon: Droplets, label: "Eau fraîche" },
-};
-
 export default function Fleet() {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -46,6 +31,20 @@ export default function Fleet() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const categories = [
+    { id: "all", label: t("fleet.categories.all") },
+    { id: "standard", label: t("fleet.categories.standard") },
+    { id: "premium", label: t("fleet.categories.premium") },
+    { id: "minibus", label: t("fleet.categories.van") }, // Using 'van' key for minibus as per translation files
+  ];
+
+  const amenityIcons: Record<string, { icon: typeof Snowflake; label: string }> = {
+    ac: { icon: Snowflake, label: t("fleet.amenities.ac") },
+    wifi: { icon: Wifi, label: t("fleet.amenities.wifi") },
+    usb: { icon: Usb, label: t("fleet.amenities.usb") },
+    water: { icon: Droplets, label: t("fleet.amenities.water") },
+  };
 
   useEffect(() => {
     fetchVehicles();
@@ -73,7 +72,7 @@ export default function Fleet() {
 
   async function toggleFavorite(vehicleId: string) {
     if (!user) {
-      toast({ title: "Connectez-vous pour ajouter aux favoris" });
+      toast({ title: t("fleet.loginToFav") });
       return;
     }
 
@@ -81,16 +80,16 @@ export default function Fleet() {
     if (isFav) {
       await supabase.from("favorites").delete().eq("user_id", user.id).eq("vehicle_id", vehicleId);
       setFavorites(favorites.filter(id => id !== vehicleId));
-      toast({ title: "Retiré des favoris" });
+      toast({ title: t("fleet.removedFav") });
     } else {
       await supabase.from("favorites").insert({ user_id: user.id, vehicle_id: vehicleId });
       setFavorites([...favorites, vehicleId]);
-      toast({ title: "Ajouté aux favoris" });
+      toast({ title: t("fleet.addedFav") });
     }
   }
 
-  const filteredVehicles = activeCategory === "all" 
-    ? vehicles 
+  const filteredVehicles = activeCategory === "all"
+    ? vehicles
     : vehicles.filter(v => v.category === activeCategory);
 
   return (
@@ -105,7 +104,7 @@ export default function Fleet() {
               transition={{ duration: 0.6 }}
               className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6"
             >
-              Our Premium Fleet
+              {t("fleet.title")}
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -113,8 +112,7 @@ export default function Fleet() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-lg text-muted-foreground"
             >
-              Modern, well-maintained vehicles for every need. From intimate transfers 
-              to large group adventures.
+              {t("fleet.subtitle")}
             </motion.p>
           </div>
         </div>
@@ -126,7 +124,7 @@ export default function Fleet() {
           <div className="flex items-center gap-4 overflow-x-auto pb-2">
             <span className="flex items-center gap-2 text-sm text-muted-foreground shrink-0">
               <Filter className="w-4 h-4" />
-              Filter:
+              {t("fleet.filter")}
             </span>
             {categories.map((cat) => (
               <button
@@ -152,11 +150,11 @@ export default function Fleet() {
           {loading ? (
             <div className="col-span-3 text-center py-12">
               <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-muted-foreground">Chargement de la flotte...</p>
+              <p className="text-muted-foreground">{t("fleet.loading")}</p>
             </div>
           ) : vehicles.length === 0 ? (
             <div className="col-span-3 text-center py-12">
-              <p className="text-muted-foreground">Aucun véhicule disponible pour le moment</p>
+              <p className="text-muted-foreground">{t("fleet.empty")}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -177,7 +175,7 @@ export default function Fleet() {
                       />
                     ) : (
                       <div className="w-full h-full bg-muted flex items-center justify-center">
-                        <span className="text-muted-foreground">Image non disponible</span>
+                        <span className="text-muted-foreground">{t("fleet.noImage")}</span>
                       </div>
                     )}
                     <div className="absolute top-4 left-4">
@@ -238,11 +236,11 @@ export default function Fleet() {
                     <div className="flex items-center justify-between pt-4 border-t border-border">
                       <div>
                         <span className="text-sm text-muted-foreground">À partir de</span>
-                        <p className="font-semibold text-foreground">{vehicle.daily_rate.toLocaleString()} FCFA/jour</p>
+                        <p className="font-semibold text-foreground">{t("fleet.dailyRate", { price: vehicle.daily_rate.toLocaleString() })}</p>
                       </div>
                       <Link to={`/book?vehicle=${vehicle.id}`}>
                         <Button variant="default" size="sm">
-                          Réserver
+                          {t("fleet.bookVehicle")}
                           <ArrowRight className="w-4 h-4" />
                         </Button>
                       </Link>
