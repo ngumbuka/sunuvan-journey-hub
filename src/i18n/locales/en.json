@@ -594,5 +594,10 @@
       "getQuote": "Get a Quote",
       "callUs": "Call Us"
     }
+  },
+  "notFound": {
+    "title": "Destination Not Found",
+    "message": "It seems you've taken a detour off the map. Don't worry, every great journey has a few unexpected stops.",
+    "returnButton": "Return to Dashboard"
   }
 }

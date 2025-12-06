@@ -600,5 +600,10 @@
       "getQuote": "Obtenir un Devis",
       "callUs": "Appelez-nous"
     }
+  },
+  "notFound": {
+    "title": "Destination Introuvable",
+    "message": "Il semble que vous ayez fait un détour hors de la carte. Ne vous inquiétez pas, chaque grand voyage a quelques arrêts imprévus.",
+    "returnButton": "Retour au Tableau de Bord"
   }
 }
