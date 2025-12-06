@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import faqHero from "@/assets/faq-hero.png";
+import ctaBg from "@/assets/cta-bg.png";
 
 export default function FAQ() {
   const { t } = useTranslation();
@@ -67,20 +69,25 @@ export default function FAQ() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="section-padding bg-gradient-hero">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative h-[40vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src={faqHero} alt="FAQ Background" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6"
+              className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/20"
             >
-              <HelpCircle className="w-8 h-8 text-primary" />
+              <HelpCircle className="w-8 h-8 text-white" />
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6"
+              className="font-display text-4xl md:text-5xl font-bold text-white mb-6"
             >
               {t("faq.hero.title")}
             </motion.h1>
@@ -88,7 +95,7 @@ export default function FAQ() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-lg text-muted-foreground mb-8"
+              className="text-lg text-white/90 mb-8"
             >
               {t("faq.hero.description")}
             </motion.p>
@@ -106,7 +113,7 @@ export default function FAQ() {
                 placeholder={t("faq.searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 py-6 text-lg rounded-full shadow-soft focus-visible:ring-primary"
+                className="pl-12 py-6 text-lg rounded-full shadow-lg focus-visible:ring-primary bg-white/95 backdrop-blur-sm"
               />
             </motion.div>
           </div>
@@ -208,8 +215,11 @@ export default function FAQ() {
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="section-padding bg-muted/30 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src={ctaBg} alt="Background" className="w-full h-full object-cover opacity-10" />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="font-display text-2xl font-bold mb-4">{t("faq.cta.title")}</h2>
           <p className="text-muted-foreground mb-8">
             {t("faq.cta.description")}

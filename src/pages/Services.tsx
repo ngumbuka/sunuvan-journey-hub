@@ -6,6 +6,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/currency";
 import servicesHero from "@/assets/services-hero.png";
+import ctaBg from "@/assets/cta-bg.png";
 
 export default function Services() {
   const { t } = useTranslation();
@@ -368,8 +369,11 @@ export default function Services() {
     </section>
 
     {/* CTA */}
-    <section className="section-padding bg-accent">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section className="section-padding bg-accent relative overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <img src={ctaBg} alt="Background" className="w-full h-full object-cover opacity-10" />
+      </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <h2 className="font-display text-3xl font-bold text-foreground mb-4">
           {t("contact.heroTitle")}
         </h2>

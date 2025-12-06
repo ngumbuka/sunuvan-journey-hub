@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
+import footerLogo from "@/assets/logo-footer.png";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -50,17 +51,16 @@ export function Footer() {
 
   const currentYear = new Date().getFullYear();
 
-  return <footer className="bg-secondary text-secondary-foreground">
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 bg-primary-foreground/5 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+  return <footer className="bg-white text-foreground border-t border-border/40">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative overflow-hidden">
+      {/* Background decoration - subtle */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-50" />
 
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
         {/* Brand */}
         <div className="lg:col-span-2 space-y-6">
           <Link to="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="Sunuvan" className="h-10 w-auto object-contain" />
+            <img src={footerLogo} alt="Sunuvan" className="h-12 w-auto object-contain" />
           </Link>
           <p className="max-w-sm text-secondary-foreground/80 leading-relaxed">
             {t("footer.description")}
