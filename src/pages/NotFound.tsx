@@ -1,10 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import notFoundHero from "@/assets/not-found-hero.png";
-import vanAnimation from "@/assets/van-animation.png";
-
 import logoFooter from "@/assets/logo-footer.png";
 
 const NotFound = () => {
@@ -25,23 +22,6 @@ const NotFound = () => {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/50" />
-      </div>
-
-      {/* Animated Van */}
-      <div className="absolute bottom-10 left-0 w-full z-20 pointer-events-none overflow-hidden h-32">
-        <motion.img
-          src={vanAnimation}
-          alt="Traveling Van"
-          className="h-24 object-contain brightness-0 invert drop-shadow-lg opacity-80"
-          initial={{ x: "-20%" }}
-          animate={{ x: "120%" }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear",
-            delay: 1
-          }}
-        />
       </div>
 
       {/* Content */}
