@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { Mail, Lock, User, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { Mail, Lock, User, ArrowRight, Eye, EyeOff, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,6 +18,7 @@ const loginSchema = z.object({
 const registerSchema = loginSchema.extend({
   firstName: z.string().min(2, "Le prénom est requis"),
   lastName: z.string().min(2, "Le nom est requis"),
+  phone: z.string().min(9, "Numéro de téléphone invalide"),
 });
 
 export default function Auth() {
@@ -33,6 +34,7 @@ export default function Auth() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    phone: "",
     email: "",
     password: "",
   });
@@ -69,7 +71,7 @@ export default function Auth() {
           navigate("/dashboard");
         }
       } else {
-        const { error } = await signUp(formData.email, formData.password, formData.firstName, formData.lastName);
+        const { error } = await signUp(formData.email, formData.password, formData.firstName, formData.lastName, formData.phone);
         if (!error) {
           toast({ title: "Compte créé !", description: "Vous pouvez maintenant vous connecter." });
           navigate("/dashboard");
@@ -144,6 +146,26 @@ export default function Auth() {
                   />
                   {errors.lastName && <p className="text-xs text-destructive">{errors.lastName}</p>}
                 </div>
+              </div>
+
+            )}
+
+            {!isLogin && (
+              <div className="space-y-2">
+                <Label htmlFor="phone">{t("auth.phone")}</Label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+221 77 000 00 00"
+                    className={`pl-10 ${errors.phone ? "border-destructive" : ""}`}
+                  />
+                </div>
+                {errors.phone && <p className="text-xs text-destructive">{errors.phone}</p>}
               </div>
             )}
 
@@ -249,6 +271,6 @@ export default function Auth() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

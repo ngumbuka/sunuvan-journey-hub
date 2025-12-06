@@ -36,7 +36,7 @@ function DashboardOverview() {
 
   async function fetchData() {
     const [profileRes, bookingsRes, favoritesRes] = await Promise.all([
-      supabase.from("profiles").select("*").eq("user_id", user!.id).maybeSingle(),
+      supabase.from("profiles").select("*").eq("id", user!.id).maybeSingle(),
       supabase.from("bookings").select("*").eq("user_id", user!.id),
       supabase.from("favorites").select("*", { count: "exact", head: true }).eq("user_id", user!.id),
     ]);
@@ -263,9 +263,14 @@ function Favorites() {
                 </p>
                 <div className="flex justify-between items-center">
                   <span className="font-semibold text-primary">{formatCurrency(fav.vehicles?.daily_rate || 0)}/jour</span>
-                  <Button variant="ghost" size="icon" onClick={() => removeFavorite(fav.id)}>
-                    <Trash2 className="w-4 h-4 text-destructive" />
-                  </Button>
+                  <div className="flex gap-2">
+                    <Link to={`/book?vehicle=${fav.vehicle_id}`}>
+                      <Button size="sm" variant="outline">Réserver</Button>
+                    </Link>
+                    <Button variant="ghost" size="icon" onClick={() => removeFavorite(fav.id)}>
+                      <Trash2 className="w-4 h-4 text-destructive" />
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -284,17 +289,22 @@ function ProfilePage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [formData, setFormData] = useState({ first_name: "", last_name: "", phone: "" });
+  const [formData, setFormData] = useState({ first_name: "", last_name: "", phone: "", email: "" });
 
   useEffect(() => {
     if (user) fetchProfile();
   }, [user]);
 
   async function fetchProfile() {
-    const { data } = await supabase.from("profiles").select("*").eq("user_id", user!.id).maybeSingle();
+    const { data } = await supabase.from("profiles").select("*").eq("id", user!.id).maybeSingle();
     setProfile(data);
     if (data) {
-      setFormData({ first_name: data.first_name || "", last_name: data.last_name || "", phone: data.phone || "" });
+      setFormData({
+        first_name: data.first_name || "",
+        last_name: data.last_name || "",
+        phone: data.phone || "",
+        email: data.email || user!.email || ""
+      });
     }
     setLoading(false);
   }
@@ -306,7 +316,7 @@ function ProfilePage() {
     const { error } = await supabase
       .from("profiles")
       .update(formData)
-      .eq("user_id", user!.id);
+      .eq("id", user!.id);
 
     setSaving(false);
     if (!error) {
@@ -341,9 +351,9 @@ function ProfilePage() {
             <Input value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} placeholder="+221 77 123 45 67" />
           </div>
           <div>
-            <Label>Email</Label>
-            <Input value={user?.email || ""} disabled className="bg-muted" />
-            <p className="text-xs text-muted-foreground mt-1">L'email ne peut pas être modifié</p>
+            <Label>Email de contact</Label>
+            <Input value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
+            <p className="text-xs text-muted-foreground mt-1">Cet email sera utilisé pour vos réservations. Votre identifiant de connexion reste inchangé.</p>
           </div>
           <Button type="submit" disabled={saving}>{saving ? "Enregistrement..." : "Enregistrer"}</Button>
         </form>

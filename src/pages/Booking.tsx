@@ -56,14 +56,20 @@ export default function Booking() {
     pickup_location: "",
     dropoff_location: "",
     passengers: 1,
+    phone: "",
     special_requests: "",
   });
 
   useEffect(() => {
-    if (vehicleId) {
-      fetchVehicle();
-      if (user) checkFavorite();
+    fetchVehicle();
+    if (user) {
+      checkFavorite();
+      // Prefill phone from metadata if available
+      if (user.user_metadata?.phone) {
+        setFormData(prev => ({ ...prev, phone: user.user_metadata.phone }));
+      }
     }
+
   }, [vehicleId, user]);
 
   async function fetchVehicle() {
@@ -153,6 +159,7 @@ export default function Booking() {
       dropoff_location: formData.dropoff_location || null,
       passengers: formData.passengers,
       special_requests: formData.special_requests || null,
+      phone: formData.phone || null,
       total_amount: totalAmount,
       deposit_amount: depositAmount,
       status: "pending" as const,
@@ -346,6 +353,18 @@ export default function Booking() {
                             ))}
                           </SelectContent>
                         </Select>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="phone">{t("auth.phone") || "Téléphone *"}</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="+221 77 000 00 00"
+                          required
+                        />
                       </div>
 
                       <div>
