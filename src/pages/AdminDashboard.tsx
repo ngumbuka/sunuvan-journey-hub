@@ -187,12 +187,18 @@ function VehicleManagement() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    // Handle potential comma inputs for French locale
+    const parseRate = (val: string) => {
+      if (!val) return 0;
+      return parseFloat(val.replace(',', '.'));
+    };
+
     // Prepare payload with correct types
     const payload: TablesInsert<"vehicles"> = {
       name: formData.name,
       type: formData.type,
       category: formData.category,
-      daily_rate: parseFloat(formData.daily_rate) || 0,
+      daily_rate: parseRate(formData.daily_rate) || 0,
       passengers: parseInt(formData.passengers) || 4,
       luggage: parseInt(formData.luggage) || 2,
       description: formData.description,
