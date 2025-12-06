@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Shield, UserCheck, RefreshCw, Sparkles, Globe2, MapPin, ArrowRight, CheckCircle, Star, Phone } from "lucide-react";
@@ -50,6 +52,42 @@ const featuredVehicles = [
 
 export default function Index() {
   const { t } = useTranslation();
+  const [dbVehicles, setDbVehicles] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function fetchVehicles() {
+      const { data } = await supabase
+        .from("vehicles")
+        .select("*")
+        .limit(3)
+        .order('created_at', { ascending: false });
+
+      if (data && data.length > 0) {
+        setDbVehicles(data);
+      }
+    }
+    fetchVehicles();
+  }, []);
+
+  const vehiclesToDisplay = dbVehicles.length > 0
+    ? dbVehicles.map(v => ({
+      id: v.id,
+      name: v.name,
+      typeLabel: v.category,
+      passengers: v.passengers,
+      price: v.daily_rate,
+      image: v.image_url,
+      link: `/book?vehicle=${v.id}`
+    }))
+    : featuredVehicles.map(v => ({
+      id: v.id,
+      name: v.name,
+      typeLabel: t(v.typeKey),
+      passengers: v.capacity,
+      price: v.price,
+      image: v.image,
+      link: "/fleet"
+    }));
 
   return (
     <Layout>
@@ -248,7 +286,7 @@ export default function Index() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuredVehicles.map((vehicle, index) => (
+            {vehiclesToDisplay.map((vehicle, index) => (
               <motion.div
                 key={vehicle.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -259,27 +297,27 @@ export default function Index() {
               >
                 <div className="aspect-[16/10] overflow-hidden">
                   <img
-                    src={vehicle.image}
+                    src={vehicle.image || ""}
                     alt={vehicle.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="p-6">
                   <span className="text-xs font-medium text-primary uppercase tracking-wide">
-                    {t(vehicle.typeKey)}
+                    {vehicle.typeLabel}
                   </span>
                   <h3 className="font-display text-xl font-semibold text-foreground mt-1 mb-2">
                     {vehicle.name}
                   </h3>
                   <p className="text-muted-foreground text-sm mb-4">
-                    {vehicle.capacity} {t("common.passengers")}
+                    {vehicle.passengers} {t("common.passengers")}
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-foreground">
                       {t("index.featured.from")} {formatCurrency(vehicle.price)}
                       {t("index.featured.day")}
                     </span>
-                    <Link to="/fleet">
+                    <Link to={vehicle.link}>
                       <Button variant="ghost" size="sm">
                         {t("index.featured.viewDetails")}
                         <ArrowRight className="w-4 h-4 ml-1" />

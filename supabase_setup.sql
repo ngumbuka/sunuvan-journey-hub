@@ -60,6 +60,13 @@ DO $$ BEGIN
   ALTER TABLE public.vehicles ADD COLUMN IF NOT EXISTS image_url TEXT;
   ALTER TABLE public.vehicles ADD COLUMN IF NOT EXISTS description TEXT;
   ALTER TABLE public.vehicles ADD COLUMN IF NOT EXISTS is_featured BOOLEAN DEFAULT false;
+  
+  -- Profiles
+  ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS email TEXT;
+  ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS phone TEXT;
+
+  -- Bookings
+  ALTER TABLE public.bookings ADD COLUMN IF NOT EXISTS phone TEXT;
 END $$;
 
 -- Drivers
@@ -82,6 +89,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   id UUID REFERENCES auth.users(id) PRIMARY KEY,
   first_name TEXT,
   last_name TEXT,
+  email TEXT,
   phone TEXT,
   preferred_language TEXT DEFAULT 'fr',
   avatar_url TEXT,
@@ -108,6 +116,7 @@ CREATE TABLE IF NOT EXISTS public.bookings (
   service_type TEXT DEFAULT 'rental',
   passengers INTEGER,
   special_requests TEXT,
+  phone TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
@@ -126,6 +135,15 @@ CREATE TABLE IF NOT EXISTS public.contact_messages (
   passengers INTEGER,
   is_read BOOLEAN DEFAULT false,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Favorites
+CREATE TABLE IF NOT EXISTS public.favorites (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES auth.users(id) NOT NULL,
+  vehicle_id UUID REFERENCES public.vehicles(id) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+  UNIQUE(user_id, vehicle_id)
 );
 
 ----------------------------------------------------------------
@@ -148,7 +166,10 @@ CREATE POLICY "Admins manage drivers" ON public.drivers FOR ALL USING (public.cu
 -- Bookings Policies
 ALTER TABLE public.bookings ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Users own bookings" ON public.bookings;
-CREATE POLICY "Users own bookings" ON public.bookings FOR ALL USING (auth.uid() = user_id);
+CREATE POLICY "Users select own bookings" ON public.bookings FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users insert own bookings" ON public.bookings FOR INSERT WITH CHECK (auth.uid() = user_id);
+-- Allow users to cancel their booking or update details while pending
+CREATE POLICY "Users update own bookings" ON public.bookings FOR UPDATE USING (auth.uid() = user_id) WITH CHECK (status IN ('pending', 'cancelled'));
 DROP POLICY IF EXISTS "Admins manage bookings" ON public.bookings;
 CREATE POLICY "Admins manage bookings" ON public.bookings FOR ALL USING (public.custom_has_role('admin'));
 
@@ -159,6 +180,58 @@ DROP POLICY IF EXISTS "Users view own profile" ON public.profiles;
 CREATE POLICY "Users view own profile" ON public.profiles FOR SELECT USING (auth.uid() = id);
 DROP POLICY IF EXISTS "Admins view all profiles" ON public.profiles;
 CREATE POLICY "Admins view all profiles" ON public.profiles FOR SELECT USING (public.custom_has_role('admin'));
+DROP POLICY IF EXISTS "Users update own profile" ON public.profiles;
+CREATE POLICY "Users update own profile" ON public.profiles FOR UPDATE USING (auth.uid() = id);
+CREATE POLICY "Admins update all profiles" ON public.profiles FOR UPDATE USING (public.custom_has_role('admin'));
+
+-- 6. Trigger for New Users (Auto-create Profile)
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.profiles (id, first_name, last_name, email, avatar_url, phone)
+  VALUES (
+    new.id,
+    new.raw_user_meta_data->>'first_name',
+    new.raw_user_meta_data->>'last_name',
+    new.email,
+    new.raw_user_meta_data->>'avatar_url',
+    new.raw_user_meta_data->>'phone'
+  );
+  
+  -- Also assign 'user' role by default
+  INSERT INTO public.user_roles (user_id, role)
+  VALUES (new.id, 'user')
+  ON CONFLICT (user_id, role) DO NOTHING;
+  
+  RETURN new;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
+
+-- 7. Backfill Profiles for Existing Users
+DO $$
+DECLARE
+  u record;
+BEGIN
+  FOR u IN SELECT * FROM auth.users LOOP
+    INSERT INTO public.profiles (id, first_name, last_name, email)
+    VALUES (
+      u.id, 
+      COALESCE(u.raw_user_meta_data->>'first_name', 'User'),
+      COALESCE(u.raw_user_meta_data->>'last_name', 'Unknown'),
+      u.email
+    )
+    ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;
+
+    INSERT INTO public.user_roles (user_id, role)
+    VALUES (u.id, 'user')
+    ON CONFLICT (user_id, role) DO NOTHING;
+  END LOOP;
+END $$;
 
 -- Messages Policies
 ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
@@ -166,6 +239,13 @@ DROP POLICY IF EXISTS "Public insert messages" ON public.contact_messages;
 CREATE POLICY "Public insert messages" ON public.contact_messages FOR INSERT WITH CHECK (true);
 DROP POLICY IF EXISTS "Admins manage messages" ON public.contact_messages;
 CREATE POLICY "Admins manage messages" ON public.contact_messages FOR ALL USING (public.custom_has_role('admin'));
+
+-- Favorites Policies
+ALTER TABLE public.favorites ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Users manage own favorites" ON public.favorites;
+CREATE POLICY "Users select own favorites" ON public.favorites FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users insert own favorites" ON public.favorites FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users delete own favorites" ON public.favorites FOR DELETE USING (auth.uid() = user_id);
 
 ----------------------------------------------------------------
 -- Storage Buckets (REQUIRED for Image Upload)

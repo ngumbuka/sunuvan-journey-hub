@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
     ArrowLeft, Calendar, MapPin, Clock, FileText, CheckCircle,
-    XCircle, User, MessageSquare, Car, CreditCard, Mail, Phone
+    XCircle, User, MessageSquare, Car, CreditCard, Mail, Phone, Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { formatCurrency } from "@/lib/currency";
 import { cn } from "@/lib/utils";
@@ -21,9 +23,13 @@ export default function BookingDetails() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const { toast } = useToast();
     const { user, isAdmin } = useAuth();
+    const location = useLocation();
+    const isAdminView = isAdmin && location.pathname.includes("/admin");
     const [booking, setBooking] = useState<BookingWithDetails | null>(null);
     const [loading, setLoading] = useState(true);
+    const [updatingParams, setUpdatingStatus] = useState(false);
 
     useEffect(() => {
         if (id) fetchBooking();
@@ -37,7 +43,7 @@ export default function BookingDetails() {
             .maybeSingle();
 
         if (error || !bookingData) {
-            navigate(isAdmin ? "/admin/bookings" : "/dashboard/bookings");
+            navigate(isAdminView ? "/admin/bookings" : "/dashboard/bookings");
             return;
         }
 
@@ -49,6 +55,22 @@ export default function BookingDetails() {
 
         setBooking({ ...bookingData, profiles: profileData } as BookingWithDetails);
         setLoading(false);
+    }
+
+    async function updateStatus(newStatus: string) {
+        setUpdatingStatus(true);
+        const { error } = await supabase
+            .from("bookings")
+            .update({ status: newStatus as any })
+            .eq("id", id);
+
+        if (!error) {
+            toast({ title: "Statut mis à jour" });
+            fetchBooking();
+        } else {
+            toast({ title: "Erreur", description: error.message, variant: "destructive" });
+        }
+        setUpdatingStatus(false);
     }
 
     if (loading) return <div className="p-8 text-center text-muted-foreground">Chargement...</div>;
@@ -76,16 +98,35 @@ export default function BookingDetails() {
                 <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => navigate(isAdmin ? "/admin/bookings" : "/dashboard/bookings")}
+                    onClick={() => navigate(isAdminView ? "/admin/bookings" : "/dashboard/bookings")}
                 >
                     <ArrowLeft className="w-5 h-5" />
                 </Button>
                 <div>
                     <h1 className="font-display text-2xl font-bold flex items-center gap-3">
                         Réservation {booking.booking_number}
-                        <span className={cn("px-3 py-1 rounded-full text-sm font-medium", statusStyles[booking.status])}>
-                            {statusLabels[booking.status]}
-                        </span>
+                        {isAdminView ? (
+                            <Select
+                                value={booking.status}
+                                onValueChange={updateStatus}
+                                disabled={updatingParams}
+                            >
+                                <SelectTrigger className="w-[180px] h-8">
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="pending">En attente</SelectItem>
+                                    <SelectItem value="confirmed">Confirmé</SelectItem>
+                                    <SelectItem value="in_progress">En cours</SelectItem>
+                                    <SelectItem value="completed">Terminé</SelectItem>
+                                    <SelectItem value="cancelled">Annulé</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        ) : (
+                            <span className={cn("px-3 py-1 rounded-full text-sm font-medium", statusStyles[booking.status])}>
+                                {statusLabels[booking.status]}
+                            </span>
+                        )}
                     </h1>
                     <p className="text-muted-foreground">
                         {new Date(booking.created_at).toLocaleDateString("fr-FR", {
@@ -146,7 +187,7 @@ export default function BookingDetails() {
                     </div>
 
                     {/* User Details (Admin Only) */}
-                    {isAdmin && booking.profiles && (
+                    {isAdminView && booking.profiles && (
                         <div className="bg-card rounded-xl p-6 shadow-soft border border-border/50">
                             <h2 className="font-semibold text-lg mb-4 flex items-center gap-2">
                                 <User className="w-5 h-5 text-primary" /> Informations Client
@@ -159,10 +200,10 @@ export default function BookingDetails() {
                                 <div>
                                     <Label>Contact</Label>
                                     <div className="space-y-1 mt-1">
-                                        {booking.profiles.phone && (
-                                            <p className="text-sm flex items-center gap-2"><Phone className="w-3 h-3" /> {booking.profiles.phone}</p>
+                                        {(booking.phone || booking.profiles.phone) && (
+                                            <p className="text-sm flex items-center gap-2"><Phone className="w-3 h-3" /> {booking.phone || booking.profiles.phone}</p>
                                         )}
-                                        <p className="text-sm flex items-center gap-2"><Mail className="w-3 h-3" /> (Email via Auth)</p>
+                                        <p className="text-sm flex items-center gap-2"><Mail className="w-3 h-3" /> {booking.profiles.email || "Non renseigné"}</p>
                                     </div>
                                 </div>
                             </div>
