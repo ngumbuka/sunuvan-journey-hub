@@ -1,58 +1,15 @@
 
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import pg from 'pg';
 
 // Load environment variables
 dotenv.config();
 
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
+const DATABASE_URL = process.env.DATABASE_URL;
 
-if (!SUPABASE_URL) {
-  console.error('Error: VITE_SUPABASE_URL is missing.');
-  console.error('Please ensure VITE_SUPABASE_URL is set in your .env file.');
-  process.exit(1);
-}
-// Client creation removed as it requires service key and we are only logging instructions
-// const supabase = createClient(SUPABASE_URL, ...);
-
-const setupDatabase = async () => {
-  console.log('🔄 Starting database setup...');
-
-  // SQL to create user_roles table
-  // This uses a Postgres function "exec_sql" if available, or we might need to rely on the Dashboard if RPC isn't set up.
-  // HOWEVER, standard Supabase keys cannot run raw SQL directly without a helper function or direct connection.
-  // BUT the user asked for an "automatic mechanism".
-
-  // Strategy: We will attempt to use the RPC approach which is standard for migrations if enabled, 
-  // OR we will output the SQL and explain that for full automation, a direct PG connection or CLI is needed.
-
-  // WAIT - The prompt implies acting on the user's behalf.
-  // The most robust way for a frontend-focused user to "run SQL" automatically 
-  // without setting up a full backend is using the Supabase API's "Rest" interface to create data,
-  // but creating TABLES via the JS Client is NOT supported out of the box.
-
-  // Correction: I cannot write a JS script that creates tables using just the JS client *unless* 
-  // there is an RPC function exposed to doing so (security risk).
-  // The best approach is to guide them to use the Supabase CLI or simply use the Dashboard SQL Editor.
-
-  // But the user insisted: "provide me an automatic mechanism whereby my app creates the tables... at bootstrap"
-
-  // Compromise: I will assume they might stick with the Dashboard for table creation, 
-  // OR I will provide the SQL in a very clear file they can paste.
-
-  // Wait, I can try to use the Management API? No, that's for managing projects.
-
-  // Let's create a script that *logs* the instructions clearly, 
-  // or checks if tables exist by trying to select from them.
-
-  console.log('⚠️  NOTE: standard Supabase client cannot create tables directly for security reasons.');
-  console.log('To strictly automate this, you would need to use the Supabase CLI or a direct Postgres connection string.');
-  console.log('\nHowever, here is the SQL you need to run ONCE in your Supabase SQL Editor:');
-
-  console.log(`
+const sqlCommands = `
   ----------------------------------------------------------------
   -- 1. Create Role Enum
   DO $$ BEGIN
@@ -73,16 +30,259 @@ const setupDatabase = async () => {
   -- 3. Enable Security
   ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
 
-  -- 4. Create Policies (Safe to run multiple times? No, need checks)
+  -- 4. Create Policies
   DO $$ BEGIN
     IF NOT EXISTS (SELECT FROM pg_policies WHERE tablename = 'user_roles' AND policyname = 'Users can read own role') THEN
       CREATE POLICY "Users can read own role" ON public.user_roles FOR SELECT USING (auth.uid() = user_id);
     END IF;
   END $$;
-  ----------------------------------------------------------------
-  `);
 
-  console.log('✅  Copy the SQL above and run it in your Supabase SQL Editor.');
+  ----------------------------------------------------------------
+  -- 5. Helper Function for Role Checks
+  CREATE OR REPLACE FUNCTION public.custom_has_role(_role public.app_role)
+  RETURNS BOOLEAN AS $$
+  BEGIN
+    RETURN EXISTS (
+      SELECT 1 FROM public.user_roles
+      WHERE user_id = auth.uid() AND role = _role
+    );
+  END;
+  $$ LANGUAGE plpgsql SECURITY DEFINER;
+
+  ----------------------------------------------------------------
+  ----------------------------------------------------------------
+  -- 6. Table Definitions (Safe/Idempotent)
+  
+  -- Vehicles
+  CREATE TABLE IF NOT EXISTS public.vehicles (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL,
+    category TEXT NOT NULL,
+    daily_rate NUMERIC NOT NULL,
+    passengers INTEGER DEFAULT 4,
+    luggage INTEGER DEFAULT 2,
+    description TEXT,
+    image_url TEXT,
+    status TEXT DEFAULT 'available',
+    is_featured BOOLEAN DEFAULT false,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+  );
+
+  -- Ensure columns exist (handling side cases if table existed before)
+  DO $$ BEGIN
+    ALTER TABLE public.vehicles ADD COLUMN IF NOT EXISTS image_url TEXT;
+    ALTER TABLE public.vehicles ADD COLUMN IF NOT EXISTS description TEXT;
+    ALTER TABLE public.vehicles ADD COLUMN IF NOT EXISTS is_featured BOOLEAN DEFAULT false;
+  END $$;
+
+  -- Drivers
+  CREATE TABLE IF NOT EXISTS public.drivers (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    email TEXT,
+    photo_url TEXT,
+    is_active BOOLEAN DEFAULT true,
+    rating NUMERIC DEFAULT 5.0,
+    total_trips INTEGER DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+  );
+
+  -- Profiles (Users)
+  CREATE TABLE IF NOT EXISTS public.profiles (
+    id UUID REFERENCES auth.users(id) PRIMARY KEY,
+    first_name TEXT,
+    last_name TEXT,
+    phone TEXT,
+    preferred_language TEXT DEFAULT 'fr',
+    avatar_url TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+  );
+
+  -- Bookings
+  CREATE TABLE IF NOT EXISTS public.bookings (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    booking_number TEXT NOT NULL,
+    user_id UUID REFERENCES auth.users(id),
+    vehicle_id UUID REFERENCES public.vehicles(id),
+    driver_id UUID REFERENCES public.drivers(id),
+    pickup_location TEXT NOT NULL,
+    dropoff_location TEXT,
+    pickup_date DATE NOT NULL,
+    pickup_time TIME NOT NULL,
+    return_date DATE,
+    status TEXT DEFAULT 'pending', 
+    total_amount NUMERIC,
+    deposit_amount NUMERIC,
+    deposit_paid BOOLEAN DEFAULT false,
+    service_type TEXT DEFAULT 'rental',
+    passengers INTEGER,
+    special_requests TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+  );
+
+  -- Contact Messages
+  CREATE TABLE IF NOT EXISTS public.contact_messages (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT,
+    message TEXT NOT NULL,
+    service_interest TEXT,
+    pickup_location TEXT,
+    dropoff_location TEXT,
+    travel_dates TEXT,
+    passengers INTEGER,
+    is_read BOOLEAN DEFAULT false,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+  );
+
+  ----------------------------------------------------------------
+  -- Policies
+
+  -- Vehicles Policies
+  ALTER TABLE public.vehicles ENABLE ROW LEVEL SECURITY;
+  DROP POLICY IF EXISTS "Public view vehicles" ON public.vehicles;
+  CREATE POLICY "Public view vehicles" ON public.vehicles FOR SELECT USING (true);
+  DROP POLICY IF EXISTS "Admins manage vehicles" ON public.vehicles;
+  CREATE POLICY "Admins manage vehicles" ON public.vehicles FOR ALL USING (public.custom_has_role('admin'));
+
+  -- Drivers Policies
+  ALTER TABLE public.drivers ENABLE ROW LEVEL SECURITY;
+  DROP POLICY IF EXISTS "Public view drivers" ON public.drivers;
+  CREATE POLICY "Public view drivers" ON public.drivers FOR SELECT USING (true);
+  DROP POLICY IF EXISTS "Admins manage drivers" ON public.drivers;
+  CREATE POLICY "Admins manage drivers" ON public.drivers FOR ALL USING (public.custom_has_role('admin'));
+
+  -- Bookings Policies
+  ALTER TABLE public.bookings ENABLE ROW LEVEL SECURITY;
+  DROP POLICY IF EXISTS "Users own bookings" ON public.bookings;
+  CREATE POLICY "Users own bookings" ON public.bookings FOR ALL USING (auth.uid() = user_id);
+  DROP POLICY IF EXISTS "Admins manage bookings" ON public.bookings;
+  CREATE POLICY "Admins manage bookings" ON public.bookings FOR ALL USING (public.custom_has_role('admin'));
+
+  -- Profiles Policies
+  ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+  DROP POLICY IF EXISTS "Users view own profile" ON public.profiles;
+  -- FIX: Profiles table uses 'id' as the user identifier (foreign key to auth.users), not 'user_id'
+  CREATE POLICY "Users view own profile" ON public.profiles FOR SELECT USING (auth.uid() = id);
+  DROP POLICY IF EXISTS "Admins view all profiles" ON public.profiles;
+  CREATE POLICY "Admins view all profiles" ON public.profiles FOR SELECT USING (public.custom_has_role('admin'));
+
+  -- Messages Policies
+  ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
+  DROP POLICY IF EXISTS "Public insert messages" ON public.contact_messages;
+  CREATE POLICY "Public insert messages" ON public.contact_messages FOR INSERT WITH CHECK (true);
+  DROP POLICY IF EXISTS "Admins manage messages" ON public.contact_messages;
+  CREATE POLICY "Admins manage messages" ON public.contact_messages FOR ALL USING (public.custom_has_role('admin'));
+
+  -- 11. Storage Buckets (REQUIRED for Image Upload)
+  INSERT INTO storage.buckets (id, name, public) 
+  VALUES ('vehicle-images', 'vehicle-images', true)
+  ON CONFLICT (id) DO NOTHING;
+
+  DROP POLICY IF EXISTS "Public Access" ON storage.objects;
+  CREATE POLICY "Public Access" ON storage.objects FOR SELECT USING ( bucket_id = 'vehicle-images' );
+
+  DROP POLICY IF EXISTS "Admin Upload" ON storage.objects;
+  CREATE POLICY "Admin Upload" ON storage.objects FOR INSERT WITH CHECK ( 
+    bucket_id = 'vehicle-images' AND public.custom_has_role('admin') 
+  );
+  
+  DROP POLICY IF EXISTS "Admin Delete" ON storage.objects;
+  CREATE POLICY "Admin Delete" ON storage.objects FOR DELETE USING ( 
+    bucket_id = 'vehicle-images' AND public.custom_has_role('admin') 
+  );
+`;
+
+const setupDatabase = async () => {
+  console.log('🔄 Starting database setup...');
+
+  if (DATABASE_URL) {
+    // Clean the URL of potential quotes or whitespace
+    const connectionString = DATABASE_URL.replace(/"/g, '').trim();
+
+    console.log('🔌 Connecting to database using DATABASE_URL...');
+    console.log(`   URL: ${connectionString.substring(0, 25)}... (masked)`);
+
+    // Generic Manual Parser:
+    // Format: postgresql://[user]:[password]@[host]:[port]/[database]
+    // Strategy: Split by LAST '@' to separate credentials from host
+
+    // Remove protocol
+    const protocolMatch = connectionString.match(/postgres(?:ql)?:\/\//);
+    const withoutProtocol = protocolMatch
+      ? connectionString.substring(protocolMatch[0].length)
+      : connectionString;
+
+    const lastAt = withoutProtocol.lastIndexOf('@');
+    if (lastAt !== -1) {
+      const credentials = withoutProtocol.substring(0, lastAt);
+      const hostPart = withoutProtocol.substring(lastAt + 1);
+
+      // Credentials -> user:password (split by first :)
+      const firstColon = credentials.indexOf(':');
+      const user = firstColon !== -1 ? credentials.substring(0, firstColon) : credentials;
+      const password = firstColon !== -1 ? credentials.substring(firstColon + 1) : '';
+
+      // HostPart -> host:port/database
+      const slashIndex = hostPart.indexOf('/');
+      const hostPort = slashIndex !== -1 ? hostPart.substring(0, slashIndex) : hostPart;
+      const database = slashIndex !== -1 ? hostPart.substring(slashIndex + 1).split('?')[0] : 'postgres';
+
+      const colonIndex = hostPort.lastIndexOf(':');
+      const host = colonIndex !== -1 ? hostPort.substring(0, colonIndex) : hostPort;
+      const port = colonIndex !== -1 ? parseInt(hostPort.substring(colonIndex + 1)) : 5432;
+
+      console.log('   (Using robust manual parser)');
+      clientConfig = {
+        user,
+        password, // Preserves special chars including @, $, etc.
+        host,
+        port,
+        database,
+        ssl: { rejectUnauthorized: false }
+      };
+    } else {
+      // Fallback
+      console.log('   (Using standard parser)');
+      clientConfig = {
+        connectionString,
+        ssl: { rejectUnauthorized: false }
+      };
+    }
+
+    const client = new pg.Client(clientConfig);
+
+    try {
+      await client.connect();
+      console.log('✅ Connected successfully.');
+      console.log('🚀 Executing SQL migration...');
+
+      await client.query(sqlCommands);
+
+      console.log('✅✅ Database setup completed successfully!');
+      console.log('   - Tables created/verified');
+      console.log('   - RLS policies applied');
+      console.log('   - Admin functions created');
+      console.log('   - Storage buckets configured');
+    } catch (err) {
+      console.error('❌ Error executing SQL:', err);
+    } finally {
+      await client.end();
+    }
+  } else {
+    console.log('⚠️  DATABASE_URL not found in .env');
+    console.log('   To run this automatically, add DATABASE_URL="postgresql://postgres:[PASSWORD]@[HOST]:[PORT]/postgres" to your .env file.');
+    console.log('\n   Or manually run the SQL below in Supabase Dashboard:');
+    console.log(sqlCommands);
+  }
 };
 
 setupDatabase();

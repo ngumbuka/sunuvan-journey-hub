@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   LayoutDashboard, Car, Calendar, Users, UserCog, Settings, LogOut, Plus, Search,
   MoreHorizontal, TrendingUp, DollarSign, Eye, Pencil, Trash2, X, Mail, BarChart3,
-  MessageSquare, CheckCircle, Clock, AlertCircle
+  MessageSquare, CheckCircle, Clock, AlertCircle, Upload
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/lib/currency";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
 type Vehicle = Tables<"vehicles">;
@@ -124,8 +125,16 @@ function VehicleManagement() {
   const [search, setSearch] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState<Vehicle | null>(null);
-  const [formData, setFormData] = useState<TablesInsert<"vehicles">>({
-    name: "", type: "", category: "standard", daily_rate: 0, passengers: 8, luggage: 4, description: ""
+  // Form State with strings for number fields to allow proper editing (decimals, empty state)
+  const [formData, setFormData] = useState({
+    name: "",
+    type: "",
+    category: "standard",
+    daily_rate: "",
+    passengers: "4",
+    luggage: "2",
+    description: "",
+    image_url: ""
   });
 
   useEffect(() => {
@@ -138,10 +147,60 @@ function VehicleManagement() {
     setLoading(false);
   }
 
+  const [uploading, setUploading] = useState(false);
+
+  async function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    try {
+      setUploading(true);
+      if (!event.target.files || event.target.files.length === 0) {
+        throw new Error('You must select an image to upload.');
+      }
+
+      const file = event.target.files[0];
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('vehicle-images')
+        .upload(filePath, file);
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      const { data } = supabase.storage.from('vehicle-images').getPublicUrl(filePath);
+
+      setFormData({ ...formData, image_url: data.publicUrl });
+      toast({ title: "Image uploaded successfully" });
+    } catch (error: any) {
+      toast({
+        title: "Error uploading image",
+        description: error.message,
+        variant: "destructive"
+      });
+    } finally {
+      setUploading(false);
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Prepare payload with correct types
+    const payload: TablesInsert<"vehicles"> = {
+      name: formData.name,
+      type: formData.type,
+      category: formData.category,
+      daily_rate: parseFloat(formData.daily_rate) || 0,
+      passengers: parseInt(formData.passengers) || 4,
+      luggage: parseInt(formData.luggage) || 2,
+      description: formData.description,
+      image_url: formData.image_url
+    };
+
     if (editingVehicle) {
-      const { error } = await supabase.from("vehicles").update(formData as TablesUpdate<"vehicles">).eq("id", editingVehicle.id);
+      const { error } = await supabase.from("vehicles").update(payload).eq("id", editingVehicle.id);
       if (!error) {
         toast({ title: "Véhicule mis à jour" });
         fetchVehicles();
@@ -149,7 +208,7 @@ function VehicleManagement() {
         resetForm();
       }
     } else {
-      const { error } = await supabase.from("vehicles").insert(formData);
+      const { error } = await supabase.from("vehicles").insert(payload);
       if (!error) {
         toast({ title: "Véhicule ajouté" });
         fetchVehicles();
@@ -170,13 +229,22 @@ function VehicleManagement() {
   }
 
   function resetForm() {
-    setFormData({ name: "", type: "", category: "standard", daily_rate: 0, passengers: 8, luggage: 4, description: "" });
+    setFormData({ name: "", type: "", category: "standard", daily_rate: "", passengers: "4", luggage: "2", description: "", image_url: "" });
     setEditingVehicle(null);
   }
 
   function openEdit(v: Vehicle) {
     setEditingVehicle(v);
-    setFormData({ name: v.name, type: v.type, category: v.category, daily_rate: v.daily_rate, passengers: v.passengers, luggage: v.luggage, description: v.description || "" });
+    setFormData({
+      name: v.name,
+      type: v.type,
+      category: v.category,
+      daily_rate: String(v.daily_rate),
+      passengers: String(v.passengers),
+      luggage: String(v.luggage),
+      description: v.description || "",
+      image_url: v.image_url || ""
+    });
     setIsDialogOpen(true);
   }
 
@@ -212,14 +280,43 @@ function VehicleManagement() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div><Label>Tarif journalier (€)</Label><Input type="number" value={formData.daily_rate} onChange={e => setFormData({ ...formData, daily_rate: Number(e.target.value) })} required /></div>
+                <div><Label>Tarif journalier (€)</Label><Input type="number" step="0.01" value={formData.daily_rate} onChange={e => setFormData({ ...formData, daily_rate: e.target.value })} required /></div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div><Label>Passagers</Label><Input type="number" value={formData.passengers} onChange={e => setFormData({ ...formData, passengers: Number(e.target.value) })} /></div>
-                <div><Label>Bagages</Label><Input type="number" value={formData.luggage} onChange={e => setFormData({ ...formData, luggage: Number(e.target.value) })} /></div>
+                <div><Label>Passagers</Label><Input type="number" value={formData.passengers} onChange={e => setFormData({ ...formData, passengers: e.target.value })} /></div>
+                <div><Label>Bagages</Label><Input type="number" value={formData.luggage} onChange={e => setFormData({ ...formData, luggage: e.target.value })} /></div>
+              </div>
+              <div>
+                <Label>Image du Véhicule</Label>
+                <div className="flex items-center gap-4 mt-2">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={uploading}
+                    className="cursor-pointer file:cursor-pointer file:text-primary file:font-semibold file:bg-primary/10 file:rounded-full file:border-0 file:px-4 file:mr-4 hover:file:bg-primary/20"
+                  />
+                  {uploading && <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent"></div>}
+                </div>
+                {formData.image_url && (
+                  <div className="mt-2 relative w-full h-40 bg-muted rounded-md overflow-hidden border">
+                    <img src={formData.image_url} alt="Preview" className="w-full h-full object-cover" />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="icon"
+                      className="absolute top-2 right-2 h-6 w-6"
+                      onClick={() => setFormData({ ...formData, image_url: "" })}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                )}
               </div>
               <div><Label>Description</Label><Textarea value={formData.description || ""} onChange={e => setFormData({ ...formData, description: e.target.value })} /></div>
-              <Button type="submit" className="w-full">{editingVehicle ? "Mettre à jour" : "Ajouter"}</Button>
+              <Button type="submit" className="w-full" disabled={uploading}>
+                {uploading ? "Upload en cours..." : (editingVehicle ? "Mettre à jour" : "Ajouter")}
+              </Button>
             </form>
           </DialogContent>
         </Dialog>

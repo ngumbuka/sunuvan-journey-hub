@@ -139,8 +139,10 @@ export default function Booking() {
 
     const totalAmount = calculateTotal();
     const depositAmount = Math.round(totalAmount * 0.3);
+    const bookingNumber = `BKG-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
     const { error } = await supabase.from("bookings").insert({
+      booking_number: bookingNumber,
       user_id: user.id,
       vehicle_id: vehicleId,
       service_type: formData.service_type,
