@@ -15,6 +15,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/currency";
 import type { Tables } from "@/integrations/supabase/types";
+import BookingDetails from "./BookingDetails";
 
 type Vehicle = Tables<"vehicles">;
 type Booking = Tables<"bookings">;
@@ -184,6 +185,9 @@ function MyBookings() {
                   {booking.total_amount && (
                     <span className="font-semibold text-lg">{formatCurrency(booking.total_amount)}</span>
                   )}
+                  <Link to={`/dashboard/bookings/${booking.id}`}>
+                    <Button variant="ghost" size="sm">Détails</Button>
+                  </Link>
                   {booking.status === "pending" && (
                     <Button variant="outline" size="sm" onClick={() => cancelBooking(booking.id)}>
                       <XCircle className="w-4 h-4 mr-1" /> Annuler
@@ -437,6 +441,7 @@ export default function Dashboard() {
       <main className="flex-1 p-8 overflow-auto">
         <Routes>
           <Route path="/" element={<DashboardOverview />} />
+          <Route path="/bookings/:id" element={<BookingDetails />} />
           <Route path="/bookings" element={<MyBookings />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<ProfilePage />} />
