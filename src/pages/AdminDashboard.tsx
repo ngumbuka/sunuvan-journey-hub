@@ -18,6 +18,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/currency";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
+import BookingDetails from "./BookingDetails";
 
 type Vehicle = Tables<"vehicles">;
 type Booking = Tables<"bookings">;
@@ -427,7 +428,9 @@ function BookingManagement() {
                   </Select>
                 </td>
                 <td className="p-4 text-right">
-                  <Button variant="ghost" size="icon"><Eye className="w-4 h-4" /></Button>
+                  <Link to={`/admin/bookings/${b.id}`}>
+                    <Button variant="ghost" size="icon"><Eye className="w-4 h-4" /></Button>
+                  </Link>
                 </td>
               </tr>
             ))}
@@ -752,6 +755,7 @@ export default function AdminDashboard() {
         <Routes>
           <Route path="/" element={<AdminOverview />} />
           <Route path="/vehicles" element={<VehicleManagement />} />
+          <Route path="/bookings/:id" element={<BookingDetails />} />
           <Route path="/bookings" element={<BookingManagement />} />
           <Route path="/users" element={<UserManagement />} />
           <Route path="/drivers" element={<DriverManagement />} />
