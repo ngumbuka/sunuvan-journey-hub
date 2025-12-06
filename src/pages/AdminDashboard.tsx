@@ -671,17 +671,10 @@ function MessagesManagement() {
     setLoading(false);
   }
 
-  async function toggleReadStatus(id: string, currentStatus: boolean) {
-    await supabase.from("contact_messages").update({ is_read: !currentStatus }).eq("id", id);
+  async function markAsRead(id: string) {
+    await supabase.from("contact_messages").update({ is_read: true }).eq("id", id);
+    toast({ title: "Marqué comme lu" });
     fetchMessages();
-  }
-
-  async function deleteMessage(id: string) {
-    if (confirm("Supprimer ce message?")) {
-      await supabase.from("contact_messages").delete().eq("id", id);
-      toast({ title: "Message supprimé" });
-      fetchMessages();
-    }
   }
 
   return (
@@ -689,41 +682,24 @@ function MessagesManagement() {
       <h1 className="font-display text-2xl font-bold">Messages de Contact</h1>
       <div className="space-y-4">
         {messages.map((m) => (
-          <div key={m.id} className={cn("bg-card rounded-xl p-6 shadow-soft border relative group", m.is_read ? "border-border/50" : "border-accent")}>
+          <div key={m.id} className={cn("bg-card rounded-xl p-6 shadow-soft border", m.is_read ? "border-border/50" : "border-accent")}>
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="font-semibold text-lg">{m.name}</h3>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
-                  <span className="flex items-center gap-1"><Mail className="w-3 h-3" /> {m.email}</span>
-                  {m.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" /> {m.phone}</span>}
-                </div>
+                <h3 className="font-semibold">{m.name}</h3>
+                <p className="text-sm text-muted-foreground">{m.email} • {m.phone}</p>
               </div>
               <div className="flex items-center gap-2">
                 {!m.is_read && <span className="px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full">Nouveau</span>}
                 <span className="text-xs text-muted-foreground">{new Date(m.created_at).toLocaleDateString("fr-FR")}</span>
               </div>
             </div>
-
-            <div className="bg-muted/30 p-4 rounded-lg mb-4">
-              {m.service_interest && <p className="text-sm mb-2"><span className="font-semibold">Intérêt:</span> {m.service_interest}</p>}
-              {m.pickup_location && <p className="text-sm mb-2"><span className="font-semibold">Trajet:</span> {m.pickup_location} → {m.dropoff_location}</p>}
-              <p className="text-foreground whitespace-pre-wrap">{m.message}</p>
-            </div>
-
-            <div className="flex items-center gap-2 justify-end opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
-              <Button variant="outline" size="sm" onClick={() => toggleReadStatus(m.id, m.is_read || false)}>
-                {m.is_read ? "Marquer comme non lu" : "Marquer comme lu"}
-              </Button>
-              <a href={`mailto:${m.email}?subject=Re: Votre demande sur Sunuvan`}>
-                <Button variant="outline" size="sm"><MessageSquare className="w-4 h-4 mr-2" /> Répondre</Button>
-              </a>
-              <Button variant="ghost" size="icon" onClick={() => deleteMessage(m.id)} className="text-destructive hover:text-destructive/90 hover:bg-destructive/10">
-                <Trash2 className="w-4 h-4" />
-              </Button>
-            </div>
+            {m.service_interest && <p className="text-sm mb-2"><strong>Service:</strong> {m.service_interest}</p>}
+            {m.pickup_location && <p className="text-sm mb-2"><strong>Trajet:</strong> {m.pickup_location} → {m.dropoff_location}</p>}
+            <p className="text-foreground mb-4">{m.message}</p>
+            {!m.is_read && <Button size="sm" onClick={() => markAsRead(m.id)}>Marquer comme lu</Button>}
           </div>
         ))}
-        {messages.length === 0 && !loading && <p className="text-center text-muted-foreground py-12">Aucun message pour le moment</p>}
+        {messages.length === 0 && !loading && <p className="text-center text-muted-foreground py-8">Aucun message</p>}
       </div>
     </div>
   );
