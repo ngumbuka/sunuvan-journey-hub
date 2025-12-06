@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Heart, CheckCircle, Shield, Star, Users, Award, Quote } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
+import ctaBg from "@/assets/cta-bg.png";
 import { useTranslation } from "react-i18next";
 import aboutHero from "@/assets/about-hero.png";
 
@@ -274,8 +275,11 @@ export default function About() {
     </section>
 
     {/* CTA */}
-    <section className="section-padding bg-secondary text-secondary-foreground">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section className="section-padding bg-secondary text-secondary-foreground relative overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <img src={ctaBg} alt="Background" className="w-full h-full object-cover opacity-10" />
+      </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
           {t("about.cta.title")}
         </h2>
