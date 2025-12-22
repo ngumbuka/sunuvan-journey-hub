@@ -480,6 +480,7 @@
     "login": "Login",
     "register": "Register",
     "email": "Email",
+    "phone": "Phone",
     "password": "Password",
     "confirmPassword": "Confirm password",
     "firstName": "First name",

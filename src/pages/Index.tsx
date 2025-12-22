@@ -7,7 +7,7 @@ import { Shield, UserCheck, RefreshCw, Sparkles, Globe2, MapPin, ArrowRight, Che
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/currency";
-import heroImage from "@/assets/hero-senegal.jpg";
+import heroImage from "@/assets/hero-senegal-branded.png";
 
 const differentiators = [
   { icon: Shield, key: "serenity" },
@@ -95,7 +95,7 @@ export default function Index() {
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroImage} alt="Route panoramique au Sénégal" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -105,7 +105,7 @@ export default function Index() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 text-accent-foreground text-sm font-medium mb-6 border border-accent/30">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium mb-6 border border-white/20 backdrop-blur-sm">
                 <Star className="w-4 h-4 fill-accent text-accent" />
                 {t("index.hero.tag")}
               </span>
@@ -115,10 +115,10 @@ export default function Index() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6"
+              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
             >
               {t("index.hero.title")}{" "}
-              <span className="text-primary">{t("index.hero.highlight")}</span>{" "}
+              <span className="text-accent">{t("index.hero.highlight")}</span>{" "}
               {t("index.hero.suffix")}
             </motion.h1>
 
@@ -126,7 +126,7 @@ export default function Index() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg md:text-xl text-muted-foreground mb-8"
+              className="text-lg md:text-xl text-gray-200 mb-8"
             >
               {t("index.hero.description")}
             </motion.p>
@@ -144,7 +144,7 @@ export default function Index() {
                 </Button>
               </Link>
               <Link to="/services">
-                <Button variant="hero-outline" size="xl">
+                <Button variant="outline" size="xl" className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary transition-colors">
                   {t("index.hero.servicesAndRates")}
                 </Button>
               </Link>
@@ -154,18 +154,18 @@ export default function Index() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-10 flex flex-wrap items-center gap-6 text-sm text-muted-foreground"
+              className="mt-10 flex flex-wrap items-center gap-6 text-sm text-gray-200"
             >
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <CheckCircle className="w-5 h-5 text-accent" />
                 {t("index.hero.allInclusive")}
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <CheckCircle className="w-5 h-5 text-accent" />
                 {t("index.hero.proDrivers")}
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <CheckCircle className="w-5 h-5 text-accent" />
                 {t("index.hero.support247")}
               </div>
             </motion.div>

@@ -483,6 +483,7 @@
     "signIn": "Connexion",
     "signUp": "Inscription",
     "email": "Email",
+    "phone": "Téléphone",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
     "firstName": "Prénom",
