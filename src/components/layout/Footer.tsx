@@ -66,11 +66,11 @@ export function Footer() {
             {t("footer.description")}
           </p>
           <div className="space-y-4">
-            <a href="tel:+221XXXXXXXX" className="flex items-center gap-3 text-secondary-foreground/80 hover:text-primary transition-colors group">
+            <a href="tel:+221771234567" className="flex items-center gap-3 text-secondary-foreground/80 hover:text-primary transition-colors group">
               <span className="p-2 rounded-full bg-secondary-foreground/5 group-hover:bg-primary/10 transition-colors">
                 <Phone className="w-4 h-4" />
               </span>
-              <span>+221 XX XXX XX XX</span>
+              <span>+221 77 123 45 67</span>
             </a>
             <a href="mailto:info@sunuvan.com" className="flex items-center gap-3 text-secondary-foreground/80 hover:text-primary transition-colors group">
               <span className="p-2 rounded-full bg-secondary-foreground/5 group-hover:bg-primary/10 transition-colors">
